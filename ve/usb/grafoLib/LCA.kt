@@ -7,6 +7,11 @@ package ve.usb.grafoLib
 */
 public class LCA(val g: GrafoDirigido) {
 
+    init {
+        val ciclo = CicloDigrafo(g)
+        if (ciclo.existeUnCiclo()) throw RuntimeException("El grafo no es acíclico.")
+    }
+
     /*
      Obtiene el LCA de dos vértices. Si alguno de los vértices no pertenece al 
      grafo de lanza una RuntimeException.
