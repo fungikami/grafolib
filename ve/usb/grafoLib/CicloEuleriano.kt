@@ -6,15 +6,59 @@ package ve.usb.grafoLib
  entonces se lanza un RuntineException.
  */
 public class CicloEuleriano(val g: GrafoDirigido) {
+    private val n = g.obtenerNumeroDeVertices()
+    private val color = Array<Color>(n) { Color.BLANCO }
+    private var grafoComponente = GrafoDirigido(0)
+    private var euleriano = true
+
+    init {
+        if (!esFC(g)) throw RuntimeException("El grafo no es fuertemente conectado.")
+
+        // Verifica si tiene un grafo euleriano
+        for (v in 0 until n) {
+            if (g.gradoExterior(v) != g.gradoInterior(v)) {
+                euleriano = false
+                break
+            }
+        }
+    }
+
+    private fun dfsVisit(g: Grafo, u: Int) {
+        // Se empieza a explorar u
+        color[u] = Color.GRIS
+
+        g.adyacentes(u).forEach {
+            // Se selecciona el adyacente
+            val v = it.elOtroVertice(u)
+            if (color[v] == Color.BLANCO) dfsVisit(g, v)
+        }
+
+        // Se termina de explorar u
+        color[u] = Color.NEGRO
+    }
+
+    private fun esFC(g: GrafoDirigido) : Boolean {
+        // Si desde el vertice 0 no se recorre todo el grafo, retorna false
+        dfsVisit(g, 0)
+        for (v in 0 until n) if (color[v] = Color.BLANCO) return false
+
+        // Calcula inversa
+        for (v in 0 until n) color[v] = Color.BLANCO
+        val gT = digrafoInverso(g)
+
+        // Si desde el vertice 0 no se recorre todo el grafo inverso, retorna false
+        dfsVisit(gT, 0)
+        for (v in 0 until n) if (color[v] = Color.BLANCO) return false
+
+        return true
+    }
 
     // Retorna un objeto iterable que contiene los lados del ciclo euleriano.
     // Si el digrafo no tiene ciclo euleriano, entonces se lanza un RuntineException. 
     fun obtenerCicloEuleriano() : Iterable<Arco> {
-	
+        return g.arcos()
     }
     
     // Retorna true si el digrafo tiene un ciclo euleriano, y false en caso contrario.
-    fun tieneCicloEuleriano() : Boolean {
-
-    }
+    fun tieneCicloEuleriano() : Boolean = euleriano
 }

@@ -22,6 +22,7 @@ all:	\
 	$(PKG_GRAPHLIB)/ComponentesConexasDFSIter.class\
 	$(PKG_GRAPHLIB)/ArbolMinimoCobertorKruskal.class\
 	$(PKG_GRAPHLIB)/ArbolMinimoCobertorPrim.class\
+	$(PKG_GRAPHLIB)/CicloEuleriano.class\
 	$(PKG_GRAPHLIB)/MetricasDeGrafo.class\
 	$(PKG_GRAPHLIB)/DosColoreable.class\
 	MainKt.class\
@@ -85,6 +86,9 @@ $(PKG_GRAPHLIB)/ColaDePrioridadPrim.class: $(PKG_GRAPHLIB)/ColaDePrioridadPrim.k
 
 $(PKG_GRAPHLIB)/ArbolMinimoCobertorPrim.class: $(PKG_GRAPHLIB)/ArbolMinimoCobertorPrim.kt
 	$(KC) $(KFLAG) $(PKG_GRAPHLIB): $(PKG_GRAPHLIB)/ArbolMinimoCobertorPrim.kt
+
+$(PKG_GRAPHLIB)/CicloEuleriano.class: $(PKG_GRAPHLIB)/CicloEuleriano.kt
+	$(KC) $(KFLAG) $(PKG_GRAPHLIB): $(PKG_GRAPHLIB)/CicloEuleriano.kt
 
 $(PKG_GRAPHLIB)/MetricasDeGrafo.class: $(PKG_GRAPHLIB)/MetricasDeGrafo.kt
 	$(KC) $(KFLAG) $(PKG_GRAPHLIB): $(PKG_GRAPHLIB)/MetricasDeGrafo.kt

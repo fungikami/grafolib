@@ -84,7 +84,7 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
 
     // Computa el radio de un grafo 
     // El radio de un grafo consiste en el menor valor de excentricidad 
-    // que se puede obtener de los v ́ertices de un grafo.
+    // que se puede obtener de los vértices de un grafo.
     fun radio() : Int = radio
 
     // Retorna el vértice centro de un grafo 
