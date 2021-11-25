@@ -24,23 +24,29 @@ public class CicloEuleriano(val g: GrafoDirigido) {
         }
 
         // Obtiene los arcos del ciclo euleriano
-
-        // Inicializa todos los lados de Color.BLANCO
-        var arcosColor = HashMap<Arco, Color>()
         var arcos = g.arcos()
+        var arcosColor = HashMap<Arco, Color>()
         arcos.forEach { arcosColor.put(it, Color.BLANCO) }
 
+        // Escoge un arco del grafo
         var arcoActual = arcos.first()
+
+        // Agrega arco a la lista de arcos del ciclo euleriano
         arcosEuler.add(arcoActual)
+
+        // Mientras existe un lado de color blanco desde el arcoActual
         while (arcosColor[arcoActual] == Color.BLANCO) {
             arcosColor[arcoActual] = Color.NEGRO
 
+            // Buscamos el siguiente arco 
             for (arc in g.adyacentes(arcoActual.sumidero())) {
                 if (arcosColor[arc] == Color.BLANCO) {
                     arcoActual = arc
                     break
                 }
             }
+
+            // Añadimos el siguiente arco en la lista de arcos del ciclo
             arcosEuler.add(arcoActual)
         }
         
