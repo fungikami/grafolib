@@ -17,6 +17,7 @@ public class LCA(val g: GrafoDirigido) {
      grafo de lanza una RuntimeException.
      */
     fun obtenerLCA(v: Int, u: Int) : Int {
-
+        //TODO
+        return -1
     }
 }

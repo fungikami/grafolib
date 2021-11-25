@@ -56,6 +56,7 @@ public class CicloEuleriano(val g: GrafoDirigido) {
     // Retorna un objeto iterable que contiene los lados del ciclo euleriano.
     // Si el digrafo no tiene ciclo euleriano, entonces se lanza un RuntineException. 
     fun obtenerCicloEuleriano() : Iterable<Arco> {
+        //TODO
         return g.arcos()
     }
     

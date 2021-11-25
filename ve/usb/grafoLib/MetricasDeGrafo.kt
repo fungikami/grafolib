@@ -20,7 +20,7 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
 
         // Calcula las excentricidades, radio y diametro
         // La excentricidad de un vértice s consiste en la longitud del camino
-        // más corto desde s hasta un vértice t, tal que t es el v ́ertice con 
+        // más corto desde s hasta un vértice t, tal que t es el vértice con 
         // el camino más corto de mayor longitud desde s.
         for (i in 0 until n) {
             color = Array<Color>(n) { Color.BLANCO }
@@ -96,7 +96,7 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     // El ındice Wiener de un grafo es la suma de todos los caminos mas
     // cortos entre todos los pares distintos de vértices de un grafo.
     fun indeceWiener() : Int {
-        
+        //TODO
         return -1
     }
 }

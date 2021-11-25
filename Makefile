@@ -25,6 +25,8 @@ all:	\
 	$(PKG_GRAPHLIB)/CicloEuleriano.class\
 	$(PKG_GRAPHLIB)/MetricasDeGrafo.class\
 	$(PKG_GRAPHLIB)/DosColoreable.class\
+	$(PKG_GRAPHLIB)/LCA.class\
+	$(PKG_GRAPHLIB)/Solver2SAT.class\
 	MainKt.class\
 
 $(PKG_GRAPHLIB)/Color.class: $(PKG_GRAPHLIB)/Color.kt
@@ -95,6 +97,12 @@ $(PKG_GRAPHLIB)/MetricasDeGrafo.class: $(PKG_GRAPHLIB)/MetricasDeGrafo.kt
 
 $(PKG_GRAPHLIB)/DosColoreable.class: $(PKG_GRAPHLIB)/DosColoreable.kt
 	$(KC) $(KFLAG) $(PKG_GRAPHLIB): $(PKG_GRAPHLIB)/DosColoreable.kt
+
+$(PKG_GRAPHLIB)/LCA.class: $(PKG_GRAPHLIB)/LCA.kt
+	$(KC) $(KFLAG) $(PKG_GRAPHLIB): $(PKG_GRAPHLIB)/LCA.kt
+
+$(PKG_GRAPHLIB)/Solver2SAT.class: $(PKG_GRAPHLIB)/Solver2SAT.kt
+	$(KC) $(KFLAG) $(PKG_GRAPHLIB): $(PKG_GRAPHLIB)/Solver2SAT.kt
 
 MainKt.class: Main.kt 
 	$(KC) $(KFLAG) .:$(PKG_GRAPHLIB) Main.kt

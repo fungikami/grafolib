@@ -8,7 +8,8 @@ public class Sol2SAT(nombreArchivo: String) {
 
     // Retorna true si existe una  asignación que haga verdadera la fórmula, en caso contrario retorna false. 
     fun tieneAsignacionVerdadera() : Boolean {
-
+        //TODO
+        return false
     }
 
     /* En caso de que exista una asignación que haga verdadera la fórmula booleana, entonces retorna la asignación
@@ -18,6 +19,7 @@ public class Sol2SAT(nombreArchivo: String) {
      retorna una RuntimeException.
     */ 
     fun asignacion() : Iterable<Boolean> {
-
+        //TODO
+        return arrayListOf()
     }
 }
