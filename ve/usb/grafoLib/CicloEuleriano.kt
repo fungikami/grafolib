@@ -40,15 +40,15 @@ public class CicloEuleriano(val g: GrafoDirigido) {
     private fun esFC(g: GrafoDirigido) : Boolean {
         // Si desde el vertice 0 no se recorre todo el grafo, retorna false
         dfsVisit(g, 0)
-        for (v in 0 until n) if (color[v] = Color.BLANCO) return false
+        for (v in 0 until n) if (color[v] == Color.BLANCO) return false
 
-        // Calcula inversa
+        // Calcula inversa de g
         for (v in 0 until n) color[v] = Color.BLANCO
         val gT = digrafoInverso(g)
 
         // Si desde el vertice 0 no se recorre todo el grafo inverso, retorna false
         dfsVisit(gT, 0)
-        for (v in 0 until n) if (color[v] = Color.BLANCO) return false
+        for (v in 0 until n) if (color[v] == Color.BLANCO) return false
 
         return true
     }
