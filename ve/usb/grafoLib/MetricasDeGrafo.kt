@@ -93,7 +93,7 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     fun centro() : Int = centro
 
     // Computa el índice Wiener de un grafo
-    // El ındice Wiener de un grafo es la suma de todos los caminos mas
+    // El índice Wiener de un grafo es la suma de todos los caminos mas
     // cortos entre todos los pares distintos de vértices de un grafo.
     fun indeceWiener() : Int {
         //TODO

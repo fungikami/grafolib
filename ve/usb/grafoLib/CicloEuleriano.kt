@@ -8,8 +8,9 @@ package ve.usb.grafoLib
 public class CicloEuleriano(val g: GrafoDirigido) {
     private val n = g.obtenerNumeroDeVertices()
     private val color = Array<Color>(n) { Color.BLANCO }
-    private var grafoComponente = GrafoDirigido(0)
+
     private var euleriano = true
+    private var arcosEuler = ArrayList<Arco>(0)
 
     init {
         if (!esFC(g)) throw RuntimeException("El grafo no es fuertemente conectado.")
@@ -21,6 +22,36 @@ public class CicloEuleriano(val g: GrafoDirigido) {
                 break
             }
         }
+
+        // Obtiene los arcos del ciclo euleriano
+
+        // Inicializa todos los lados de Color.BLANCO
+        var arcosColor = HashMap<Arco, Color>()
+        var arcos = g.arcos()
+        arcos.forEach { arcosColor.put(it, Color.BLANCO) }
+
+        var arcoActual = arcos.first()
+        arcosEuler.add(arcoActual)
+        while (arcosColor[arcoActual] == Color.BLANCO) {
+            arcosColor[arcoActual] = Color.NEGRO
+
+            for (arc in g.adyacentes(arcoActual.sumidero())) {
+                if (arcosColor[arc] == Color.BLANCO) {
+                    arcoActual = arc
+                    break
+                }
+            }
+            arcosEuler.add(arcoActual)
+        }
+        
+        // EULER-TOUR(G)
+        // color all edges WHITE
+        // let (v, u) be any edge
+        // let L be a list containing v
+        // while there is some WHITE edge (v, w) coming out of v
+        //     color (v, w) BLACK
+        //     v = w
+        //     append v to L
     }
 
     private fun dfsVisit(g: Grafo, u: Int) {
@@ -55,10 +86,7 @@ public class CicloEuleriano(val g: GrafoDirigido) {
 
     // Retorna un objeto iterable que contiene los lados del ciclo euleriano.
     // Si el digrafo no tiene ciclo euleriano, entonces se lanza un RuntineException. 
-    fun obtenerCicloEuleriano() : Iterable<Arco> {
-        //TODO
-        return g.arcos()
-    }
+    fun obtenerCicloEuleriano() : Iterable<Arco> = arcosEuler
     
     // Retorna true si el digrafo tiene un ciclo euleriano, y false en caso contrario.
     fun tieneCicloEuleriano() : Boolean = euleriano
