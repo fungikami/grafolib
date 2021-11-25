@@ -39,9 +39,7 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
 
     private fun esConexo() : Boolean {
         bfs(g, 0)
-        color.forEach { 
-            if (it != Color.NEGRO) return false
-        }
+        color.forEach { if (it != Color.NEGRO) return false }
         return true
     }
 
@@ -88,7 +86,7 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     fun radio() : Int = radio
 
     // Retorna el vértice centro de un grafo 
-    // El centro de un grafo es el v ́ertice v con el que se 
+    // El centro de un grafo es el vértice v con el que se 
     // obtiene el valor del radio de un grafo.
     fun centro() : Int = centro
 
