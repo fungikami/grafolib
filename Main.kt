@@ -31,6 +31,4 @@ fun main() {
     println("   -El grafo 2 es bipartito: ${bipartito2.esDosColoreable()}")
 
     println("------------------------------------------------------------")
-
-    
 }
