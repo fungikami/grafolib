@@ -10,16 +10,15 @@ public class LCA(val g: GrafoDirigido) {
     private val n = g.obtenerNumeroDeVertices()
     private val color = Array<Color>(n) { Color.BLANCO }
     private val pred = Array<Int?>(n) { null }
-    private val gT = digrafoInverso(g)
+    private var vFuente = 0
 
     init {
         val ciclo = CicloDigrafo(g)
         if (ciclo.existeUnCiclo()) throw RuntimeException("El grafo no es acíclico.")
 
         // Buscar el vértice fuente
-        val vFuente = 0
         for (v in 0 until n) {
-            if g.gradoInterior(v) == 0 {
+            if (g.gradoInterior(v) == 0) {
                 vFuente = v 
                 break
             }
@@ -72,9 +71,9 @@ public class LCA(val g: GrafoDirigido) {
         if (v < 0 || v >= n) throw RuntimeException("El vértice $v no pertenece al grafo.")
         if (u < 0 || u >= n) throw RuntimeException("El vértice $u no pertenece al grafo.")
 
-        // Si uno de los vertices el predecesor del otro, es el LCA
-        if (pred[v] == u) return u
-        if (pred[u] == v) return v 
+        // Si uno de los vertices es el fuente, es el LCA
+        if (vFuente == u) return u
+        if (vFuente == v) return v 
 
         // En cambio, se debe buscar el ancestro en común con mayor nivel
         
