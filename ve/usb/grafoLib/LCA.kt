@@ -1,6 +1,9 @@
 package ve.usb.grafoLib
 
 import java.util.LinkedList
+import kotlin.Double.Companion.POSITIVE_INFINITY
+import kotlin.Double.Companion.NEGATIVE_INFINITY
+
 /*
  Clase para determinar el ancestro común más bajo de un par de vértices.
  El grafo de entrada tiene que ser un digrafo acíclico, en caso contrario
@@ -9,7 +12,8 @@ import java.util.LinkedList
 public class LCA(val g: GrafoDirigido) {
     private val n = g.obtenerNumeroDeVertices()
     private val color = Array<Color>(n) { Color.BLANCO }
-    private val pred = Array<Int?>(n) { null }
+    private val dist = IntArray(n) { POSITIVE_INFINITY.toInt() }
+    private val pred = Array<ArrayList<Int>>(n) { arrayListOf() }
     private var vFuente = 0
 
     init {
@@ -24,8 +28,9 @@ public class LCA(val g: GrafoDirigido) {
             }
         }
 
-        // Aplicar BFS modificado desde el vertice fuente para hallar 
-        // los predecesores más proximos a cada vértice.
+        // Aplicar BFS modificado desde el vertice fuente
+        // para hallar los ancestros de cada vértice.
+        dist[vFuente] = 0
         color[vFuente] = Color.GRIS
         val Q = LinkedList<Int>()
         Q.add(vFuente)
@@ -37,8 +42,9 @@ public class LCA(val g: GrafoDirigido) {
                 // Se selecciona el adyacente
                 val s = it.elOtroVertice(u)
 
-                // Actualiza predecesor aunque ya se haya visitado
-                pred[s] = u
+                // Guardar predecesor del vértice.
+                pred[s].add(u)
+                dist[s] = dist[u] + 1
 
                 if (color[s] == Color.BLANCO) {
                     color[s] = Color.GRIS
@@ -76,7 +82,17 @@ public class LCA(val g: GrafoDirigido) {
         if (vFuente == v) return v 
 
         // En cambio, se debe buscar el ancestro en común con mayor nivel
-        
-        return -1
+        val ancestrosComun = pred[u].intersect(pred[v])
+        var maxNivel = NEGATIVE_INFINITY.toInt()
+        var maxNivelVert = 0
+
+        for (anc in ancestrosComun) {
+            if (dist[anc] > maxNivel) {
+                maxNivel = dist[anc]
+                maxNivelVert = anc
+            }
+        }
+
+        return maxNivelVert
     }   
 }
