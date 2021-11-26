@@ -17,8 +17,7 @@ public class LCA(val g: GrafoDirigido) {
     private var vFuente = 0
 
     init {
-        val ciclo = CicloDigrafo(g)
-        if (ciclo.existeUnCiclo()) throw RuntimeException("El grafo no es acíclico.")
+        if (CicloDigrafo(g).existeUnCiclo()) throw RuntimeException("El grafo no es acíclico.")
 
         // Buscar el vértice fuente
         for (v in 0 until n) {
@@ -28,8 +27,8 @@ public class LCA(val g: GrafoDirigido) {
             }
         }
 
-        // Aplicar BFS modificado desde el vertice fuente
-        // para hallar los ancestros de cada vértice.
+        /* Aplicar BFS modificado desde el vertice fuente
+        para hallar los ancestros de cada vértice.*/
         dist[vFuente] = 0
         color[vFuente] = Color.GRIS
         val Q = LinkedList<Int>()
@@ -60,8 +59,8 @@ public class LCA(val g: GrafoDirigido) {
      grafo de lanza una RuntimeException.
      */
     fun obtenerLCA(v: Int, u: Int) : Int {
-        if (v < 0 || v >= n) throw RuntimeException("El vértice $v no pertenece al grafo.")
-        if (u < 0 || u >= n) throw RuntimeException("El vértice $u no pertenece al grafo.")
+        chequearVertice(v)
+        chequearVertice(u)
 
         // Si uno de los vertices es el fuente, es el LCA
         if (vFuente == u) return u
@@ -80,5 +79,5 @@ public class LCA(val g: GrafoDirigido) {
         }
 
         return maxNivelVert
-    }   
+    }
 }
