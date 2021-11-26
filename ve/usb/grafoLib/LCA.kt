@@ -55,20 +55,6 @@ public class LCA(val g: GrafoDirigido) {
         }
     }
     
-    private fun dfsVisit(g: Grafo, u: Int) {
-        // Se empieza a explorar u
-        color[u] = Color.GRIS
-
-        g.adyacentes(u).forEach {
-            // Se selecciona el adyacente
-            val v = it.elOtroVertice(u)
-            if (color[v] == Color.BLANCO) dfsVisit(g, v)
-        }
-
-        // Se termina de explorar u
-        color[u] = Color.NEGRO
-    }
-
     /*
      Obtiene el LCA de dos vértices. Si alguno de los vértices no pertenece al 
      grafo de lanza una RuntimeException.
