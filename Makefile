@@ -99,7 +99,7 @@ $(PKG_GRAPHLIB)/DosColoreable.class: $(PKG_GRAPHLIB)/DosColoreable.kt
 	$(KC) $(KFLAG) $(PKG_GRAPHLIB): $(PKG_GRAPHLIB)/DosColoreable.kt
 
 $(PKG_GRAPHLIB)/LCA.class: $(PKG_GRAPHLIB)/LCA.kt
-	$(KC) $(KFLAG) $(PKG_GRAPHLIB): $(PKG_GRAPHLIB)/LCA.kt
+	$(KC) $(KFLAG) $(PKG_GRAPHLIB): $(PKG_GRAPHLIB)/Utilidades.kt $(PKG_GRAPHLIB)/LCA.kt
 
 $(PKG_GRAPHLIB)/Solver2SAT.class: $(PKG_GRAPHLIB)/Solver2SAT.kt
 	$(KC) $(KFLAG) $(PKG_GRAPHLIB): $(PKG_GRAPHLIB)/Solver2SAT.kt
