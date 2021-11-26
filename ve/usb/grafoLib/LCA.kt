@@ -44,6 +44,8 @@ public class LCA(val g: GrafoDirigido) {
         dfsVisit(gT, v)
 
         // Aplicar BFS al grafo inverso desde el vértice u
+        if (color[u] != Color.BLANCO) return u
+
         color[u] = Color.GRIS
         val Q = LinkedList<Int>()
         Q.add(u)
@@ -59,14 +61,14 @@ public class LCA(val g: GrafoDirigido) {
                     color[s] = Color.GRIS
                     Q.add(s)
                 // Si encuentra ya un coloreado por el DFS anterior, ya es LCA (???)
-                } else if (color[s] == Color.NEGRO) {
+                } else {
                     lca = s
                     break
                 }
             }
             color[r] = Color.NEGRO
         }
-        
+        // AY PAPA AQUI NO CUBRE VARIOS CASOS CREO
         return lca
     }   
 }
