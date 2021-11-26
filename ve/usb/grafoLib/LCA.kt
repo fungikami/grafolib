@@ -9,11 +9,45 @@ import java.util.LinkedList
 public class LCA(val g: GrafoDirigido) {
     private val n = g.obtenerNumeroDeVertices()
     private val color = Array<Color>(n) { Color.BLANCO }
+    private val pred = Array<Int?>(n) { null }
     private val gT = digrafoInverso(g)
 
     init {
         val ciclo = CicloDigrafo(g)
         if (ciclo.existeUnCiclo()) throw RuntimeException("El grafo no es acíclico.")
+
+        // Buscar el vértice fuente
+        val vFuente = 0
+        for (v in 0 until n) {
+            if g.gradoInterior(v) == 0 {
+                vFuente = v 
+                break
+            }
+        }
+
+        // Aplicar BFS modificado desde el vertice fuente para hallar 
+        // los predecesores más proximos a cada vértice.
+        color[vFuente] = Color.GRIS
+        val Q = LinkedList<Int>()
+        Q.add(vFuente)
+        
+        while (!Q.isEmpty()) {
+            val u = Q.poll()
+
+            g.adyacentes(u).forEach {
+                // Se selecciona el adyacente
+                val s = it.elOtroVertice(u)
+
+                // Actualiza predecesor aunque ya se haya visitado
+                pred[s] = u
+
+                if (color[s] == Color.BLANCO) {
+                    color[s] = Color.GRIS
+                    Q.add(s)
+                }
+            }
+            color[u] = Color.NEGRO
+        }
     }
     
     private fun dfsVisit(g: Grafo, u: Int) {
@@ -38,37 +72,12 @@ public class LCA(val g: GrafoDirigido) {
         if (v < 0 || v >= n) throw RuntimeException("El vértice $v no pertenece al grafo.")
         if (u < 0 || u >= n) throw RuntimeException("El vértice $u no pertenece al grafo.")
 
-        var lca = v 
+        // Si uno de los vertices el predecesor del otro, es el LCA
+        if (pred[v] == u) return u
+        if (pred[u] == v) return v 
 
-        // Aplicar DFS al grafo inverso desde el vértice v
-        dfsVisit(gT, v)
-
-        // Aplicar BFS al grafo inverso desde el vértice u
-        if (color[u] != Color.BLANCO) return u
-
-        color[u] = Color.GRIS
-        val Q = LinkedList<Int>()
-        Q.add(u)
+        // En cambio, se debe buscar el ancestro en común con mayor nivel
         
-        while (!Q.isEmpty()) {
-            val r = Q.poll()
-
-            for (arco in gT.adyacentes(r)) {
-                // Se selecciona el adyacente
-                val s = arco.elOtroVertice(r)
-
-                if (color[s] == Color.BLANCO) {
-                    color[s] = Color.GRIS
-                    Q.add(s)
-                // Si encuentra ya un coloreado por el DFS anterior, ya es LCA (???)
-                } else {
-                    lca = s
-                    break
-                }
-            }
-            color[r] = Color.NEGRO
-        }
-        // AY PAPA AQUI NO CUBRE VARIOS CASOS CREO
-        return lca
+        return -1
     }   
 }
