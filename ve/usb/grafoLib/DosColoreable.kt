@@ -29,7 +29,7 @@ public class DosColoreable(val g: GrafoNoDirigido) {
      *               [u] es un vértice perteneciente al grafo.
      * Postcondición: true
      */
-    private fun dfsVisit(g: Grafo, u: Int) : Boolean {
+    private fun dfsVisit(g: Grafo, u: Int): Boolean {
         // Se empieza a explorar u
         color[u] = Color.GRIS
 
@@ -38,9 +38,11 @@ public class DosColoreable(val g: GrafoNoDirigido) {
             val v = it.elOtroVertice(u)
 
             if (color[v] == Color.BLANCO) {
+                /* Si no se ha visitado el vértice se le
+                colorea con el color opuesto al predecesor. */
                 bipartitoColor[v] = !bipartitoColor[u]
-                if (dfsVisit(g, v) == false) return false
-
+                
+                if (!dfsVisit(g, v)) return false
             } else if (bipartitoColor[u] == bipartitoColor[v]) {
                 return false
             }
@@ -48,10 +50,9 @@ public class DosColoreable(val g: GrafoNoDirigido) {
 
         // Se termina de explorar u
         color[u] = Color.NEGRO
-
         return true
     }
 
     // Retorna true si el grafo de entrada es un grafo bipartito, false en caso contrario.
-    fun esDosColoreable() : Boolean = bipartito
+    fun esDosColoreable(): Boolean = bipartito
 }

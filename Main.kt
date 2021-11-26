@@ -9,28 +9,28 @@ import ve.usb.grafoLib.*
  * 
  */
 fun main() {
+    println("\u001B[32mPrueba de grafo bipartito: \u001B[0m\n")
+    
+    val BIPARTITO = "bipartito.txt"
+    val BIPARTITO2 = "bipartito2.txt"
 
     // Prueba de grafo bipartito
-    val g = GrafoNoDirigido(9)
-    g.agregarArista(Arista(0, 1))
-    g.agregarArista(Arista(1, 2))
-    g.agregarArista(Arista(1, 7))
-    g.agregarArista(Arista(2, 3))
-    g.agregarArista(Arista(3, 5))
-    g.agregarArista(Arista(4, 6))
-    g.agregarArista(Arista(4, 8))
-    g.agregarArista(Arista(7, 8))
-    g.agregarArista(Arista(1, 3)) // Si se agrega, el grafo no es bipartito
-
+    val g = GrafoNoDirigido(BIPARTITO, false)
     val bipartito = DosColoreable(g)
-    println("El grafo es bipartito: ${bipartito.esDosColoreable()}")
+    println("   -El grafo es bipartito: ${bipartito.esDosColoreable()}\n")
+    
+    println("   -Se agrega un lado que rompe la condición de bipartición.\n")
 
-    val g2 = GrafoNoDirigido(4)
-    g2.agregarArista(Arista(0, 1))
-    g2.agregarArista(Arista(0, 3))
-    g2.agregarArista(Arista(1, 2))
-    g2.agregarArista(Arista(2, 3))
+    // Si se agrega, el grafo no es bipartito
+    g.agregarArista(Arista(1, 3)) 
+    val noBipartito = DosColoreable(g)
+    println("   -El grafo es bipartito: ${noBipartito.esDosColoreable()}\n")
 
+    val g2 = GrafoNoDirigido(BIPARTITO2, false)
     val bipartito2 = DosColoreable(g2)
-    println("El grafo 2 es bipartito: ${bipartito2.esDosColoreable()}")
+    println("   -El grafo 2 es bipartito: ${bipartito2.esDosColoreable()}")
+
+    println("------------------------------------------------------------")
+
+    
 }

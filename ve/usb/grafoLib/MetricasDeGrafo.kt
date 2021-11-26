@@ -10,6 +10,7 @@ import java.util.LinkedList
 public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     private val n = g.obtenerNumeroDeVertices()
     private var color = Array<Color>(n) { Color.BLANCO }
+    
     private val excentricidades = IntArray(n)
     private var diametro = Integer.MIN_VALUE
     private var radio = Integer.MAX_VALUE
@@ -18,10 +19,10 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     init {
         if (!esConexo()) throw RuntimeException("El grafo no es conexo.")
 
-        // Calcula las excentricidades, radio y diametro
-        // La excentricidad de un vértice s consiste en la longitud del camino
-        // más corto desde s hasta un vértice t, tal que t es el vértice con 
-        // el camino más corto de mayor longitud desde s.
+        /* Calcula las excentricidades, radio y diametro
+        La excentricidad de un vértice s consiste en la longitud del camino
+        más corto desde s hasta un vértice t, tal que t es el vértice con 
+        el camino más corto de mayor longitud desde s. */
         for (i in 0 until n) {
             color = Array<Color>(n) { Color.BLANCO }
             excentricidades[i] = bfs(g, i)
