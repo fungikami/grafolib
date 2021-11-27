@@ -1,11 +1,15 @@
 package ve.usb.grafoLib
 
-/*
- Determina si un grafo es 2-coloreable o bipartito. El algoritmo se ejecutan 
- al invocar el constructor de la clase. 
+/**
+ * Implementación de DFS modificado para determinar si un
+ * grafo es bipartito.
+ * 
+ * Se determina si un grafo es 2-coloreable o bipartito
+ * al momento que se crea una instancia de la clase.
+ * 
+ * @param [g]: grafo no dirigido sobre el que se ejecuta el algoritmo.
  */
 public class DosColoreable(val g: GrafoNoDirigido) {
-
     // Propiedades de los vértices del grafo
     private val n = g.obtenerNumeroDeVertices()
     private val color = Array<Color>(n) { Color.BLANCO }
@@ -53,6 +57,13 @@ public class DosColoreable(val g: GrafoNoDirigido) {
         return true
     }
 
-    // Retorna true si el grafo de entrada es un grafo bipartito, false en caso contrario.
+    /**
+     * Retorna un booleano indicando si [g] es un grafo bipartito.
+     * Tiempo de ejecución: O(1).
+     * Precondición: true.
+     * Postcondición: [esDosColoreable] es -True si [g] cumple con las 
+     *                                      propiedades de un grafo bipartito.
+     *                                     -False de otra forma.
+     */
     fun esDosColoreable(): Boolean = bipartito
 }

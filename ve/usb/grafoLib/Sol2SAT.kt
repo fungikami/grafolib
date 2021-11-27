@@ -5,6 +5,25 @@ package ve.usb.grafoLib
  el cual contiene la fórmula booleana en 2CNF. El archivo tiene el formato indicado en el enunciado del Proyecto.
 */
 public class Sol2SAT(nombreArchivo: String) {
+    init {
+        // https://www.math.ucsd.edu/~sbuss/CourseWeb/Math268_2007WS/2SAT.pdf
+        // https://en.wikipedia.org/wiki/2-satisfiability
+
+        // Abrir archivo
+
+        // Digrafo de implicacion
+        //val digrafoImp = GrafoDirigido()
+
+        // Agregar lados
+
+        // Obtener CFC
+
+        // Si existe asignacion que haga verdadera, se crea grafo componente
+
+        // Ordenamiento topologico <
+
+        // 
+    }
 
     // Retorna true si existe una  asignación que haga verdadera la fórmula, en caso contrario retorna false. 
     fun tieneAsignacionVerdadera() : Boolean {

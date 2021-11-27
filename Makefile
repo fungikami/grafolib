@@ -101,8 +101,8 @@ $(PKG_GRAPHLIB)/DosColoreable.class: $(PKG_GRAPHLIB)/DosColoreable.kt
 $(PKG_GRAPHLIB)/LCA.class: $(PKG_GRAPHLIB)/LCA.kt
 	$(KC) $(KFLAG) $(PKG_GRAPHLIB): $(PKG_GRAPHLIB)/Utilidades.kt $(PKG_GRAPHLIB)/LCA.kt
 
-$(PKG_GRAPHLIB)/Solver2SAT.class: $(PKG_GRAPHLIB)/Solver2SAT.kt
-	$(KC) $(KFLAG) $(PKG_GRAPHLIB): $(PKG_GRAPHLIB)/Solver2SAT.kt
+$(PKG_GRAPHLIB)/Sol2SAT.class: $(PKG_GRAPHLIB)/Sol2SAT.kt
+	$(KC) $(KFLAG) $(PKG_GRAPHLIB): $(PKG_GRAPHLIB)/Sol2SAT.kt
 
 MainKt.class: Main.kt 
 	$(KC) $(KFLAG) .:$(PKG_GRAPHLIB) Main.kt

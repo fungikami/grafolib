@@ -2,11 +2,12 @@ package ve.usb.grafoLib
 
 import java.util.LinkedList
 
-/*
- Computación de varias métricas sobre un grafo no dirigido conexo.
- Se recibe como entrada un grafo no dirigido conexo, en caso de que
- el grafo no sea conexo, entonces se lanza un RuntimeException.
-*/
+/** 
+ * Clase que computa varias métricas sobre un grafo no dirigido conexo.
+ * 
+ * @throws [RuntimeException] Si el grafo de entrada no es conexo.
+ *
+ */ 
 public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     private val n = g.obtenerNumeroDeVertices()
     private var color = Array<Color>(n) { Color.BLANCO }
@@ -40,11 +41,20 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
         }
     }
 
+    /**
+     * Retorna un booleano indicando si [g] es un grafo conexo
+     * 
+     * Tiempo de ejecución: O(|E|).
+     * Precondición: True.
+     * Postcondición: [esConexo] es: -True si [g] es conexo.
+     *                               -False de otra forma.
+     */
     private fun esConexo(): Boolean {
         bfsExcentricidad(g, 0)
         return color.all{ it == Color.NEGRO }
     }
     
+
     private fun bfsExcentricidad(g: Grafo, s: Int): Int {
         val dist = IntArray(n) { Integer.MAX_VALUE }
         
