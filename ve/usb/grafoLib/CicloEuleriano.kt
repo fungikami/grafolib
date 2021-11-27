@@ -17,10 +17,8 @@ public class CicloEuleriano(val g: GrafoDirigido) {
 
         // Verifica si tiene un grafo euleriano
         for (v in 0 until n) {
-            if (g.gradoExterior(v) != g.gradoInterior(v)) {
-                euleriano = false
-                break
-            }
+            euleriano = g.gradoExterior(v) == g.gradoInterior(v)
+            if (!euleriano) break
         }
 
         // Obtiene los arcos del ciclo euleriano
@@ -74,7 +72,7 @@ public class CicloEuleriano(val g: GrafoDirigido) {
         color[u] = Color.NEGRO
     }
 
-    private fun esFC(g: GrafoDirigido) : Boolean {
+    private fun esFC(g: GrafoDirigido): Boolean {
         // Si desde el vertice 0 no se recorre todo el grafo, retorna false
         dfsVisit(g, 0)
         for (v in 0 until n) if (color[v] == Color.BLANCO) return false
@@ -92,8 +90,8 @@ public class CicloEuleriano(val g: GrafoDirigido) {
 
     // Retorna un objeto iterable que contiene los lados del ciclo euleriano.
     // Si el digrafo no tiene ciclo euleriano, entonces se lanza un RuntineException. 
-    fun obtenerCicloEuleriano() : Iterable<Arco> = arcosEuler
+    fun obtenerCicloEuleriano(): Iterable<Arco> = arcosEuler
     
     // Retorna true si el digrafo tiene un ciclo euleriano, y false en caso contrario.
-    fun tieneCicloEuleriano() : Boolean = euleriano
+    fun tieneCicloEuleriano(): Boolean = euleriano
 }

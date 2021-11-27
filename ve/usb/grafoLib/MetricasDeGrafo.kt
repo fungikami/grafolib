@@ -14,7 +14,7 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     private var dist = IntArray(n) { Integer.MAX_VALUE }
     private var pred = Array<Int?>(n) { null }
     
-    private val excentricidades = IntArray(n)
+    private val excentricidad = IntArray(n)
     private var diametro = Integer.MIN_VALUE
     private var radio = Integer.MAX_VALUE
     private var centro = 0
@@ -31,17 +31,17 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
             color = Array<Color>(n) { Color.BLANCO }
             dist = IntArray(n) { Integer.MAX_VALUE }
             pred = Array<Int?>(n) { null }
-            excentricidades[i] = bfsExcentricidad(g, i)
+            excentricidad[i] = bfsExcentricidad(g, i)
 
             // Mínimo excentricidad
-            if (excentricidades[i] < radio) {
-                radio = excentricidades[i]
+            if (excentricidad[i] < radio) {
+                radio = excentricidad[i]
                 centro = i
             }
 
             // Máximo excentricidad
-            if (excentricidades[i] > diametro) {
-                diametro = excentricidades[i]
+            if (excentricidad[i] > diametro) {
+                diametro = excentricidad[i]
             }
 
             // Calcular las distancias de s hasta los demas vertices
@@ -105,7 +105,7 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     // Computa la excentricidad de s
     fun excentricidad(s: Int) : Int {
         g.chequearVertice(s)
-        return excentricidades[s]
+        return excentricidad[s]
     } 
 
     // Computa el diámetro de un grafo 
