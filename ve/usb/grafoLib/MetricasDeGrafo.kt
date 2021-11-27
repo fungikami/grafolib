@@ -11,11 +11,14 @@ import java.util.LinkedList
 public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     private val n = g.obtenerNumeroDeVertices()
     private var color = Array<Color>(n) { Color.BLANCO }
+    private var dist = IntArray(n) { Integer.MAX_VALUE }
+    private var pred = Array<Int?>(n) { null }
     
     private val excentricidades = IntArray(n)
     private var diametro = Integer.MIN_VALUE
     private var radio = Integer.MAX_VALUE
     private var centro = 0
+    private var wiener = 0
 
     init {
         if (!esConexo()) throw RuntimeException("El grafo no es conexo.")
@@ -26,6 +29,8 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
         el camino más corto de mayor longitud desde s. */
         for (i in 0 until n) {
             color = Array<Color>(n) { Color.BLANCO }
+            dist = IntArray(n) { Integer.MAX_VALUE }
+            pred = Array<Int?>(n) { null }
             excentricidades[i] = bfsExcentricidad(g, i)
 
             // Mínimo excentricidad
@@ -38,6 +43,17 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
             if (excentricidades[i] > diametro) {
                 diametro = excentricidades[i]
             }
+
+            // Calcular las distancias de s hasta los demas vertices
+            var suma = 0
+            for (v in i+1 until n) {
+                var u: Int? = v
+                while (pred[u!!] != null){
+                    suma += dist[u]
+                    u = pred[u]
+                }
+            }
+            wiener += suma
         }
     }
 
@@ -56,8 +72,6 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     
 
     private fun bfsExcentricidad(g: Grafo, s: Int): Int {
-        val dist = IntArray(n) { Integer.MAX_VALUE }
-        
         dist[s] = 0
         color[s] = Color.GRIS
         val Q = LinkedList<Int>()
@@ -75,6 +89,7 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
                 if (color[v] == Color.BLANCO) {
                     color[v] = Color.GRIS
                     dist[v] = dist[u] + 1
+                    pred[v] = u
                     Q.add(v)
                     
                     // Actualizo excentricidad
@@ -105,10 +120,7 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     // Computa el índice Wiener de un grafo
     // El índice Wiener de un grafo es la suma de todos los caminos mas
     // cortos entre todos los pares distintos de vértices de un grafo.
-    fun indiceWiener(): Int {
-        //TODO
-        return -1
-    }
+    fun indiceWiener(): Int = wiener
 }
 
 
