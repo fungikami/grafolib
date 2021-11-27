@@ -59,8 +59,8 @@ public class LCA(val g: GrafoDirigido) {
      grafo de lanza una RuntimeException.
      */
     fun obtenerLCA(v: Int, u: Int) : Int {
-        chequearVertice(v)
-        chequearVertice(u)
+        g.chequearVertice(v)
+        g.chequearVertice(u)
 
         // Si uno de los vertices es el fuente, es el LCA
         if (vFuente == u) return u

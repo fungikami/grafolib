@@ -26,7 +26,7 @@ all:	\
 	$(PKG_GRAPHLIB)/MetricasDeGrafo.class\
 	$(PKG_GRAPHLIB)/DosColoreable.class\
 	$(PKG_GRAPHLIB)/LCA.class\
-	$(PKG_GRAPHLIB)/Solver2SAT.class\
+	$(PKG_GRAPHLIB)/Sol2SAT.class\
 	MainKt.class\
 
 $(PKG_GRAPHLIB)/Color.class: $(PKG_GRAPHLIB)/Color.kt

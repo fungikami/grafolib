@@ -9,6 +9,17 @@ import ve.usb.grafoLib.*
  * 
  */
 fun main() {
+    println("\u001B[32mPrueba del Ciclo Euleriano: \u001B[0m\n")
+
+
+    println("------------------------------------------------------------")
+
+    println("\u001B[32mPrueba de las métricas de un grafo no dirigido: \u001B[0m\n")
+
+
+
+    println("------------------------------------------------------------")
+
     println("\u001B[32mPrueba de grafo bipartito: \u001B[0m\n")
     
     val BIPARTITO = "bipartito.txt"
@@ -31,4 +42,13 @@ fun main() {
     println("   -El grafo 2 es bipartito: ${bipartito2.esDosColoreable()}")
 
     println("------------------------------------------------------------")
+
+    println("\u001B[32mPrueba de detección del ancestro común más bajo: \u001B[0m\n")
+
+
+
+    println("------------------------------------------------------------")
+
+    println("\u001B[32mPrueba del solucionador de 2-SAT: \u001B[0m\n")
+
 }
