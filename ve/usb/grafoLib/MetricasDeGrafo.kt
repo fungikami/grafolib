@@ -10,9 +10,8 @@ import java.util.LinkedList
  */ 
 public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     private val n = g.obtenerNumeroDeVertices()
-    private var color = Array<Color>(n) { Color.BLANCO }
-    private var dist = IntArray(n) { Integer.MAX_VALUE }
-    private var pred = Array<Int?>(n) { null }
+    private val color = Array<Color>(n) { Color.BLANCO }
+    private val dist = IntArray(n) { Integer.MAX_VALUE }
     
     private val excentricidad = IntArray(n)
     private var diametro = Integer.MIN_VALUE
@@ -27,33 +26,25 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
         La excentricidad de un vértice s consiste en la longitud del camino
         más corto desde s hasta un vértice t, tal que t es el vértice con 
         el camino más corto de mayor longitud desde s. */
-        for (i in 0 until n) {
-            color = Array<Color>(n) { Color.BLANCO }
-            dist = IntArray(n) { Integer.MAX_VALUE }
-            pred = Array<Int?>(n) { null }
-            excentricidad[i] = bfsExcentricidad(g, i)
+        for (u in 0 until n) {
+            for (u in 0 until n) color[u] = Color.BLANCO
+            for (u in 0 until n) dist[u] = Integer.MAX_VALUE
+
+            excentricidad[u] = bfsExcentricidad(g, u)
 
             // Mínimo excentricidad
-            if (excentricidad[i] < radio) {
-                radio = excentricidad[i]
-                centro = i
+            if (excentricidad[u] < radio) {
+                radio = excentricidad[u]
+                centro = u
             }
 
             // Máximo excentricidad
-            if (excentricidad[i] > diametro) {
-                diametro = excentricidad[i]
+            if (excentricidad[u] > diametro) {
+                diametro = excentricidad[u]
             }
 
             // Calcular las distancias de s hasta los demas vertices
-            var suma = 0
-            for (v in i+1 until n) {
-                var u: Int? = v
-                while (pred[u!!] != null){
-                    suma += dist[u]
-                    u = pred[u]
-                }
-            }
-            wiener += suma
+            for (v in u + 1 until n) wiener += dist[u]
         }
     }
 
@@ -89,7 +80,6 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
                 if (color[v] == Color.BLANCO) {
                     color[v] = Color.GRIS
                     dist[v] = dist[u] + 1
-                    pred[v] = u
                     Q.add(v)
                     
                     // Actualizo excentricidad
@@ -128,5 +118,3 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     // cortos entre todos los pares distintos de vértices de un grafo.
     fun indiceWiener(): Int = wiener
 }
-
-

@@ -35,8 +35,6 @@ fun pruebasCicloEuleriano() {
 
 fun pruebasMetricas() {
     println("\u001B[32mPrueba de las métricas de un grafo no dirigido: \u001B[0m\n")
-
-
 }
 
 fun pruebasBipartito() {
