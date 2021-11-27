@@ -12,7 +12,7 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     private val n = g.obtenerNumeroDeVertices()
     private var color = Array<Color>(n) { Color.BLANCO }
     
-    private val excentricidades = IntArray(n)
+    private val excentricidad = IntArray(n)
     private var diametro = Integer.MIN_VALUE
     private var radio = Integer.MAX_VALUE
     private var centro = 0
@@ -26,17 +26,17 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
         el camino más corto de mayor longitud desde s. */
         for (i in 0 until n) {
             color = Array<Color>(n) { Color.BLANCO }
-            excentricidades[i] = bfsExcentricidad(g, i)
+            excentricidad[i] = bfsExcentricidad(g, i)
 
             // Mínimo excentricidad
-            if (excentricidades[i] < radio) {
-                radio = excentricidades[i]
+            if (excentricidad[i] < radio) {
+                radio = excentricidad[i]
                 centro = i
             }
 
             // Máximo excentricidad
-            if (excentricidades[i] > diametro) {
-                diametro = excentricidades[i]
+            if (excentricidad[i] > diametro) {
+                diametro = excentricidad[i]
             }
         }
     }
