@@ -102,6 +102,12 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
         return excent
     }
 
+    // Computa la excentricidad de s
+    fun excentricidad(s: Int) : Int {
+        g.chequearVertice(s)
+        return excentricidades[s]
+    } 
+
     // Computa el diámetro de un grafo 
     // El diámetro de un grafo consiste en el mayor valor de 
     // excentricidad que se puede obtener de los vértices de un grafo.
