@@ -27,8 +27,8 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
         más corto desde s hasta un vértice t, tal que t es el vértice con 
         el camino más corto de mayor longitud desde s. */
         for (u in 0 until n) {
-            for (u in 0 until n) color[u] = Color.BLANCO
-            for (u in 0 until n) dist[u] = Integer.MAX_VALUE
+            for (i in 0 until n) color[i] = Color.BLANCO
+            for (i in 0 until n) dist[i] = Integer.MAX_VALUE
 
             excentricidad[u] = bfsExcentricidad(g, u)
 

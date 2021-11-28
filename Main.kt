@@ -1,6 +1,6 @@
 import ve.usb.grafoLib.*
 
-CARPETA = "pruebas"
+val CARPETA = "pruebas"
 
 /**
  * Universidad Simón Bolívar.
@@ -16,24 +16,26 @@ fun main() {
 
     println("------------------------------------------------------------")
 
-    pruebasMetricas()
+    // pruebasMetricas()
 
-    println("------------------------------------------------------------")
+    // println("------------------------------------------------------------")
     
-    pruebasBipartito()
+    // pruebasBipartito()
     
-    println("------------------------------------------------------------")
+    // println("------------------------------------------------------------")
     
-    pruebasLCA()
+    // pruebasLCA()
 
-    println("------------------------------------------------------------")
+    // println("------------------------------------------------------------")
 
-    pruebas2SAT()
+    // pruebas2SAT()
 }
 
 fun pruebasCicloEuleriano() {
     println("\u001B[32mPrueba del Ciclo Euleriano: \u001B[0m\n")
     
+    // val EULER = "$CARPETA/cicloEuleriano.txt"
+    // val EULER2 = "$CARPETA/cicloEuleriano2.txt"
     val EULER = "$CARPETA/cicloEuleriano.txt"
     val EULER2 = "$CARPETA/cicloEuleriano2.txt"
 
@@ -41,13 +43,13 @@ fun pruebasCicloEuleriano() {
     println("\nPrueba 1:")
     val g = GrafoDirigido(EULER, false)
     val euler = CicloEuleriano(g)
-    println(" ${g.tieneCicloEuleriano()}") // true
+    println(" ${euler.tieneCicloEuleriano()}") // true
     for (c in euler.obtenerCicloEuleriano()) { println(c) }
 
     println("\nPrueba 2:")
     val g2 = GrafoDirigido(EULER2, false)
     val euler2 = CicloEuleriano(g2)
-    println(" ${g2.tieneCicloEuleriano()}") // true
+    println(" ${euler2.tieneCicloEuleriano()}") // true
     for (c in euler2.obtenerCicloEuleriano()) { println(c) }
 
 }
@@ -115,7 +117,7 @@ fun pruebasLCA() {
 
     // Prueba del ancestro común más bajo
     println("\nPrueba 1:")
-    val g = GrafoNoDirigido(LCA, false)
+    val g = GrafoDirigido(LCA, false)
     val lca = LCA(g)
 
     println("   -LCA(4, 3) = ${lca.obtenerLCA(4, 3)}") // 5
@@ -124,7 +126,7 @@ fun pruebasLCA() {
     println("   -LCA(1, 0) = ${lca.obtenerLCA(5, 4)}") // 0
 
     println("\nPrueba 2:")
-    val g2 = GrafoNoDirigido(LCA2, false)
+    val g2 = GrafoDirigido(LCA2, false)
     val lca2 = LCA(g2)
 
     println("   -LCA(0, 1) = ${lca2.obtenerLCA(0, 1)}") // 0
