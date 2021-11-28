@@ -12,7 +12,7 @@ public class CicloEuleriano(val g: GrafoDirigido) {
     private val color = Array<Color>(n) { Color.BLANCO }
 
     private var euleriano = true
-    private var arcosColor = HashMap<Arco, Boolean>()
+    private var arcoVisitado = HashMap<Arco, Boolean>()
     private var cicloEuler = LinkedList<Arco>()
 
     init {
@@ -42,38 +42,36 @@ public class CicloEuleriano(val g: GrafoDirigido) {
 
         // Obtiene los arcos del ciclo euleriano
         var arcos = g.arcos()
-        arcos.forEach { arcosColor.put(it, false) }
-        eulerTourRecur(g, arcos.first())
-        //eulerTourIter(g, arcos.first())
+        arcos.forEach { arcoVisitado[it] = false }
+        // eulerTourRecur(g, arcos.first())
+        eulerTourIter(g, arcos.first())
     }
 
     private fun eulerTourRecur(g: GrafoDirigido, lado: Arco) {
-        arcosColor[lado] = true
+        arcoVisitado[lado] = true
         g.adyacentes(lado.sumidero()).forEach {
-            if (arcosColor[it] == false) {
-                arcosColor[it] = true
-                eulerTourRecur(g, it)
+            if (!arcoVisitado[it]!!) {
+                arcoVisitado[it] = true
             }
         }
         cicloEuler.addFirst(lado)
     }
 
     private fun eulerTourIter(g: GrafoDirigido, lado: Arco){
-        val Q = LinkedList<Arco>()
-        Q.addFirst(lado)
-        arcosColor[lado] = true
+        val S = LinkedList<Arco>()
+        S.addFirst(lado)
+        arcoVisitado[lado] = true
         
-        while (Q.size != 0) {
-            val arco = Q.poll()
+        while (!S.isEmpty()) {
+            val arco = S.poll()
 
             g.adyacentes(arco.sumidero()).forEach {
-                if (arcosColor[it] == false) {
-                    arcosColor[it] = true
-                    Q.addFirst(it)
-                    
+                if (!arcoVisitado[it]!!) {
+                    arcoVisitado[it] = true
+                    S.addFirst(it)
                 }
             }
-            //println(arco)
+            // println(arco)
             cicloEuler.add(arco)
         }
     }

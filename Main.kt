@@ -36,22 +36,19 @@ fun pruebasCicloEuleriano() {
     
     // val EULER = "$CARPETA/cicloEuleriano.txt"
     // val EULER2 = "$CARPETA/cicloEuleriano2.txt"
-    val EULER = "$CARPETA/cicloEuleriano.txt"
-    val EULER2 = "$CARPETA/cicloEuleriano2.txt"
-
+    val PRUEBAS = arrayOf("$CARPETA/cicloEuleriano.txt",
+        "$CARPETA/cicloEuleriano2.txt",
+        "$CARPETA/cicloEuleriano3.txt",
+    )
+    
     // Prueba del ciclo euleriano
-    println("Prueba 1:")
-    val g = GrafoDirigido(EULER, false)
-    val euler = CicloEuleriano(g)
-    println("  -Es un ciclo euleriano: ${euler.tieneCicloEuleriano()}") // true
-    for (c in euler.obtenerCicloEuleriano()) { println(c) }
-
-    println("\nPrueba 2:")
-    val g2 = GrafoDirigido(EULER2, false)
-    val euler2 = CicloEuleriano(g2)
-    println("  -Es un ciclo euleriano: ${euler2.tieneCicloEuleriano()}") // true
-    for (c in euler2.obtenerCicloEuleriano()) { println(c) }
-
+    PRUEBAS.forEachIndexed { i, prueba ->
+        println("Prueba ${i+1}:")
+        val g = GrafoDirigido(prueba, false)
+        val euler = CicloEuleriano(g)
+        println("  -Es un ciclo euleriano: ${euler.tieneCicloEuleriano()}") // true
+        println("  ${euler.obtenerCicloEuleriano()}")
+    }
 }
 
 fun pruebasMetricas() {
@@ -77,8 +74,7 @@ fun pruebasMetricas() {
     println("   -Centro = ${met.centro()}")   // 2
 
     // Índice Wiener
-    println("   -Índice Wiener = ${met.indiceWiener()}")   // 28
-    // (1 + 2*4 + 3) + (1 + 2*3 + 3) + (1*3 + 2) + 1 
+    println("   -Índice Wiener = ${met.indiceWiener()}")   // 40
 
     println("\nPrueba 2:")
     val g2 = GrafoNoDirigido(METRICAS2, false)
