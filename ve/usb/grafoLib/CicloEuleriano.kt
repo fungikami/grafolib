@@ -43,8 +43,8 @@ public class CicloEuleriano(val g: GrafoDirigido) {
         // Obtiene los arcos del ciclo euleriano
         var arcos = g.arcos()
         arcos.forEach { arcoVisitado[it] = false }
-        // eulerTourRecur(g, arcos.first())
-        eulerTourIter(g, arcos.first())
+        eulerTourRecur(g, arcos.first())
+        // eulerTourIter(g, arcos.first())
     }
 
     private fun eulerTourRecur(g: GrafoDirigido, lado: Arco) {
@@ -52,6 +52,7 @@ public class CicloEuleriano(val g: GrafoDirigido) {
         g.adyacentes(lado.sumidero()).forEach {
             if (!arcoVisitado[it]!!) {
                 arcoVisitado[it] = true
+                eulerTourRecur(g, it)
             }
         }
         cicloEuler.addFirst(lado)
