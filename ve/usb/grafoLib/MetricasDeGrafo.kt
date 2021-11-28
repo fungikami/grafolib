@@ -44,7 +44,7 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
             }
 
             // Calcular las distancias de s hasta los demas vertices
-            for (v in u + 1 until n) wiener += dist[u]
+            for (v in u + 1 until n) wiener += dist[v]
         }
     }
 

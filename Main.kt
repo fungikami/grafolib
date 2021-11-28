@@ -16,19 +16,19 @@ fun main() {
 
     println("------------------------------------------------------------")
 
-    // pruebasMetricas()
+    pruebasMetricas()
 
-    // println("------------------------------------------------------------")
+    println("------------------------------------------------------------")
     
-    // pruebasBipartito()
+    pruebasBipartito()
     
-    // println("------------------------------------------------------------")
+    println("------------------------------------------------------------")
     
-    // pruebasLCA()
+    pruebasLCA()
 
-    // println("------------------------------------------------------------")
+    println("------------------------------------------------------------")
 
-    // pruebas2SAT()
+    pruebas2SAT()
 }
 
 fun pruebasCicloEuleriano() {
@@ -40,16 +40,16 @@ fun pruebasCicloEuleriano() {
     val EULER2 = "$CARPETA/cicloEuleriano2.txt"
 
     // Prueba del ciclo euleriano
-    println("\nPrueba 1:")
+    println("Prueba 1:")
     val g = GrafoDirigido(EULER, false)
     val euler = CicloEuleriano(g)
-    println(" ${euler.tieneCicloEuleriano()}") // true
+    println("  -Es un ciclo euleriano: ${euler.tieneCicloEuleriano()}") // true
     for (c in euler.obtenerCicloEuleriano()) { println(c) }
 
     println("\nPrueba 2:")
     val g2 = GrafoDirigido(EULER2, false)
     val euler2 = CicloEuleriano(g2)
-    println(" ${euler2.tieneCicloEuleriano()}") // true
+    println("  -Es un ciclo euleriano: ${euler2.tieneCicloEuleriano()}") // true
     for (c in euler2.obtenerCicloEuleriano()) { println(c) }
 
 }
@@ -60,14 +60,14 @@ fun pruebasMetricas() {
     val METRICAS = "$CARPETA/metricas.txt"
     //val METRICAS2 = 
 
-    println("\nPrueba 1:")
+    println("Prueba 1:")
     val g = GrafoNoDirigido(METRICAS, false)
     val met = MetricasDeGrafo(g)
 
     // Excentricidad
-    println("   -Excentricidad(0) = ${met.excentricidad(1)}") // 3
+    println("   -Excentricidad(0) = ${met.excentricidad(0)}") // 3
     println("   -Excentricidad(1) = ${met.excentricidad(1)}") // 3
-    println("   -Excentricidad(2) = ${met.excentricidad(1)}") // 2
+    println("   -Excentricidad(2) = ${met.excentricidad(2)}") // 2
 
     // Diámetro
     println("   -Diámetro = ${met.diametro()}")   // 3
@@ -77,7 +77,7 @@ fun pruebasMetricas() {
     println("   -Centro = ${met.centro()}")   // 2
 
     // Índice Wiener
-    println("   -Índice Wiener = ${met.centro()}")   // 28
+    println("   -Índice Wiener = ${met.indiceWiener()}")   // 28
     // (1 + 2*4 + 3) + (1 + 2*3 + 3) + (1*3 + 2) + 1 
 
     println("\nPrueba 2:")
@@ -91,7 +91,7 @@ fun pruebasBipartito() {
     val BIPARTITO2 = "$CARPETA/bipartito2.txt"
 
     // Prueba de grafo bipartito
-    println("\nPrueba 1:")
+    println("Prueba 1:")
     val g = GrafoNoDirigido(BIPARTITO, false)
     val bipartito = DosColoreable(g)
     println("   -El grafo es bipartito: ${bipartito.esDosColoreable()}\n")
@@ -116,7 +116,7 @@ fun pruebasLCA() {
     val LCA2 = "$CARPETA/lca2.txt"
 
     // Prueba del ancestro común más bajo
-    println("\nPrueba 1:")
+    println("Prueba 1:")
     val g = GrafoDirigido(LCA, false)
     val lca = LCA(g)
 
