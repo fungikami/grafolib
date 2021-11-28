@@ -26,7 +26,7 @@ public class LCA(val g: GrafoDirigido) {
                 break
             }
         }
-
+        println(vFuente)
         /* Aplicar BFS modificado desde el vertice fuente
         para hallar los ancestros de cada vértice.*/
         dist[vFuente] = 0
@@ -67,9 +67,12 @@ public class LCA(val g: GrafoDirigido) {
         if (vFuente == v) return v 
 
         // En cambio, se debe buscar el ancestro en común con mayor nivel
+        println(pred[u])
+        println(pred[v])
         val ancestrosComun = pred[u].intersect(pred[v])
+        println(ancestrosComun)
         var maxNivel = NEGATIVE_INFINITY.toInt()
-        var maxNivelVert = 0
+        var maxNivelVert = -1
 
         for (anc in ancestrosComun) {
             if (dist[anc] > maxNivel) {

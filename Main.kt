@@ -123,16 +123,16 @@ fun pruebasLCA() {
     println("   -LCA(4, 3) = ${lca.obtenerLCA(4, 3)}") // 5
     println("   -LCA(5, 3) = ${lca.obtenerLCA(5, 3)}") // 1
     println("   -LCA(5, 4) = ${lca.obtenerLCA(5, 4)}") // 2
-    println("   -LCA(1, 0) = ${lca.obtenerLCA(5, 4)}") // 0
+    println("   -LCA(1, 0) = ${lca.obtenerLCA(1, 0)}") // 0
 
     println("\nPrueba 2:")
     val g2 = GrafoDirigido(LCA2, false)
     val lca2 = LCA(g2)
 
-    println("   -LCA(0, 1) = ${lca2.obtenerLCA(0, 1)}") // 0
-    println("   -LCA(2, 4) = ${lca2.obtenerLCA(2, 4)}") // 1
-    println("   -LCA(5, 6) = ${lca2.obtenerLCA(5, 6)}") // 1
-    println("   -LCA(1, 2) = ${lca2.obtenerLCA(1, 2)}") // 0
+    println("   -LCA(0, 1) = ${lca2.obtenerLCA(0, 1)}") // 1
+    println("   -LCA(2, 4) = ${lca2.obtenerLCA(2, 4)}") // 6
+    println("   -LCA(5, 6) = ${lca2.obtenerLCA(5, 6)}") // 6
+    println("   -LCA(1, 2) = ${lca2.obtenerLCA(1, 2)}") // 2
 }
 
 fun pruebas2SAT() {
