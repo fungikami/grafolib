@@ -66,6 +66,9 @@ public class LCA(val g: GrafoDirigido) {
         if (vFuente == u) return u
         if (vFuente == v) return v 
 
+        // Si uno de los vertices es el predecesor del otro, es el LCA
+        
+
         // En cambio, se debe buscar el ancestro en común con mayor nivel
         println(pred[u])
         println(pred[v])

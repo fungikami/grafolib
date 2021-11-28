@@ -58,7 +58,7 @@ fun pruebasMetricas() {
     println("\u001B[32mPrueba de las métricas de un grafo no dirigido: \u001B[0m\n")
 
     val METRICAS = "$CARPETA/metricas.txt"
-    //val METRICAS2 = 
+    val METRICAS2 = "$CARPETA/metricas2.txt" 
 
     println("Prueba 1:")
     val g = GrafoNoDirigido(METRICAS, false)
@@ -81,6 +81,24 @@ fun pruebasMetricas() {
     // (1 + 2*4 + 3) + (1 + 2*3 + 3) + (1*3 + 2) + 1 
 
     println("\nPrueba 2:")
+    val g2 = GrafoNoDirigido(METRICAS2, false)
+    val met2 = MetricasDeGrafo(g2)
+
+    // Excentricidad
+    println("   -Excentricidad(0) = ${met2.excentricidad(0)}") // 3
+    println("   -Excentricidad(1) = ${met2.excentricidad(1)}") // 3
+    println("   -Excentricidad(2) = ${met2.excentricidad(2)}") // 2
+
+    // Diámetro
+    println("   -Diámetro = ${met2.diametro()}")   // 3
+
+    // Radio
+    println("   -Radio = ${met2.radio()}")     // 2
+    println("   -Centro = ${met2.centro()}")   // 2
+
+    // Índice Wiener
+    println("   -Índice Wiener = ${met2.indiceWiener()}")   // 28
+    // (1 + 2*4 + 3) + (1 + 2*3 + 3) + (1*3 + 2) + 1 
 
 }
 
