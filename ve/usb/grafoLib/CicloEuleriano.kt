@@ -44,39 +44,11 @@ public class CicloEuleriano(val g: GrafoDirigido) {
         var arcos = g.arcos()
         arcos.forEach { arcosColor.put(it, false) }
         eulerTourRecur(g, arcos.first())
-        // // Escoge un arco del grafo
-        // var arcoActual = arcos.first()
-
-        // // Agrega arco a la lista de arcos del ciclo euleriano
-        // arcosEuler.add(arcoActual)
-
-        // // Mientras existe un lado de color blanco desde el arcoActual
-        // while (!arcosColor[arcoActual]) {
-        //     arcosColor[arcoActual] = true
-
-        //     // Buscamos el siguiente arco 
-        //     for (arc in g.adyacentes(arcoActual.sumidero())) {
-        //         if (!arcosColor[arc]) {
-        //             arcoActual = arc
-        //             break
-        //         }
-        //     }
-
-        //     // Añadimos el siguiente arco en la lista de arcos del ciclo
-        //     arcosEuler.add(arcoActual)
-        // }        
-        
-        // EULER-TOUR(G)
-        // color all edges WHITE
-        // let (v, u) be any edge
-        // let L be a list containing v
-        // while there is some WHITE edge (v, w) coming out of v
-        //     color (v, w) BLACK
-        //     v = w
-        //     append v to L
+        //eulerTourIter(g, arcos.first())
     }
 
     private fun eulerTourRecur(g: GrafoDirigido, lado: Arco) {
+        arcosColor[lado] = true
         g.adyacentes(lado.sumidero()).forEach {
             if (arcosColor[it] == false) {
                 arcosColor[it] = true
@@ -84,6 +56,26 @@ public class CicloEuleriano(val g: GrafoDirigido) {
             }
         }
         cicloEuler.addFirst(lado)
+    }
+
+    private fun eulerTourIter(g: GrafoDirigido, lado: Arco){
+        val Q = LinkedList<Arco>()
+        Q.addFirst(lado)
+        arcosColor[lado] = true
+        
+        while (Q.size != 0) {
+            val arco = Q.poll()
+
+            g.adyacentes(arco.sumidero()).forEach {
+                if (arcosColor[it] == false) {
+                    arcosColor[it] = true
+                    Q.addFirst(it)
+                    
+                }
+            }
+            //println(arco)
+            cicloEuler.add(arco)
+        }
     }
 
     private fun dfsVisit(g: Grafo, u: Int) {
