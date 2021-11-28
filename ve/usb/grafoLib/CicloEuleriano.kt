@@ -1,5 +1,7 @@
 package ve.usb.grafoLib
 
+import java.util.LinkedList
+
 /*
  Esta clase al inicializarse determina si un digrafo fuertemente conectado, 
  tiene o no un ciclo euleriano. Si el digrafo de entrada no es fuertemente conectado,
@@ -10,7 +12,7 @@ public class CicloEuleriano(val g: GrafoDirigido) {
     private val color = Array<Color>(n) { Color.BLANCO }
 
     private var euleriano = true
-    private var arcosEuler = ArrayList<Arco>(0)
+    private var cicloEuler = ArrayList<Arco>(0)
 
     init {
         if (!esFC(g)) throw RuntimeException("El grafo no es fuertemente conectado.")
@@ -21,6 +23,21 @@ public class CicloEuleriano(val g: GrafoDirigido) {
             if (!euleriano) break
         }
 
+        val arcos = g.arcos()
+
+        if (euleriano) {
+            val temp = LinkedList<Arco>(0)
+            
+            temp.add(arcos.first())
+
+            while (!temp.isEmpty()) {
+                var u = temp.peekLast()
+
+                if (g.adyacentes(u).firstOrNull == null) {
+                    
+                }
+            }
+        }
         // // Obtiene los arcos del ciclo euleriano
         // var arcos = g.arcos()
         // var arcosColor = HashMap<Arco, Color>()
@@ -46,7 +63,7 @@ public class CicloEuleriano(val g: GrafoDirigido) {
 
         //     // Añadimos el siguiente arco en la lista de arcos del ciclo
         //     arcosEuler.add(arcoActual)
-        // }
+        // }        
         
         // EULER-TOUR(G)
         // color all edges WHITE
@@ -87,10 +104,10 @@ public class CicloEuleriano(val g: GrafoDirigido) {
     }
 
     // Retorna un objeto iterable que contiene los lados del ciclo euleriano.
-    // Si el digrafo no tiene ciclo euleriano, entonces se lanza un RuntineException. 
+    // Si el digrafo no tiene ciclo euleriano, entonces se lanza un RuntimeException. 
     fun obtenerCicloEuleriano(): Iterable<Arco> = {
         if (!euleriano) throw RuntimeException("El grafo no tiene ciclo euleriano.")
-        
+        // 
         return g.arcos()
     }
     
