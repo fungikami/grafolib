@@ -21,32 +21,32 @@ public class CicloEuleriano(val g: GrafoDirigido) {
             if (!euleriano) break
         }
 
-        // Obtiene los arcos del ciclo euleriano
-        var arcos = g.arcos()
-        var arcosColor = HashMap<Arco, Color>()
-        arcos.forEach { arcosColor.put(it, Color.BLANCO) }
+        // // Obtiene los arcos del ciclo euleriano
+        // var arcos = g.arcos()
+        // var arcosColor = HashMap<Arco, Color>()
+        // arcos.forEach { arcosColor.put(it, false) }
 
-        // Escoge un arco del grafo
-        var arcoActual = arcos.first()
+        // // Escoge un arco del grafo
+        // var arcoActual = arcos.first()
 
-        // Agrega arco a la lista de arcos del ciclo euleriano
-        arcosEuler.add(arcoActual)
+        // // Agrega arco a la lista de arcos del ciclo euleriano
+        // arcosEuler.add(arcoActual)
 
-        // Mientras existe un lado de color blanco desde el arcoActual
-        while (arcosColor[arcoActual] == Color.BLANCO) {
-            arcosColor[arcoActual] = Color.NEGRO
+        // // Mientras existe un lado de color blanco desde el arcoActual
+        // while (!arcosColor[arcoActual]) {
+        //     arcosColor[arcoActual] = true
 
-            // Buscamos el siguiente arco 
-            for (arc in g.adyacentes(arcoActual.sumidero())) {
-                if (arcosColor[arc] == Color.BLANCO) {
-                    arcoActual = arc
-                    break
-                }
-            }
+        //     // Buscamos el siguiente arco 
+        //     for (arc in g.adyacentes(arcoActual.sumidero())) {
+        //         if (!arcosColor[arc]) {
+        //             arcoActual = arc
+        //             break
+        //         }
+        //     }
 
-            // Añadimos el siguiente arco en la lista de arcos del ciclo
-            arcosEuler.add(arcoActual)
-        }
+        //     // Añadimos el siguiente arco en la lista de arcos del ciclo
+        //     arcosEuler.add(arcoActual)
+        // }
         
         // EULER-TOUR(G)
         // color all edges WHITE
@@ -75,7 +75,7 @@ public class CicloEuleriano(val g: GrafoDirigido) {
     private fun esFC(g: GrafoDirigido): Boolean {
         // Si desde el vertice 0 no se recorre todo el grafo, retorna false
         dfsVisit(g, 0)
-        for (v in 0 until n) if (color[v] == Color.BLANCO) return false
+        if (color.any { it == Color.BLANCO }) return false
 
         // Calcula inversa de g
         for (v in 0 until n) color[v] = Color.BLANCO
@@ -83,14 +83,16 @@ public class CicloEuleriano(val g: GrafoDirigido) {
 
         // Si desde el vertice 0 no se recorre todo el grafo inverso, retorna false
         dfsVisit(gT, 0)
-        for (v in 0 until n) if (color[v] == Color.BLANCO) return false
-
-        return true
+        return color.all { it == Color.NEGRO }
     }
 
     // Retorna un objeto iterable que contiene los lados del ciclo euleriano.
     // Si el digrafo no tiene ciclo euleriano, entonces se lanza un RuntineException. 
-    fun obtenerCicloEuleriano(): Iterable<Arco> = arcosEuler
+    fun obtenerCicloEuleriano(): Iterable<Arco> = {
+        if (!euleriano) throw RuntimeException("El grafo no tiene ciclo euleriano.")
+        
+        return g.arcos()
+    }
     
     // Retorna true si el digrafo tiene un ciclo euleriano, y false en caso contrario.
     fun tieneCicloEuleriano(): Boolean = euleriano

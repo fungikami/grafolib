@@ -31,10 +31,26 @@ fun main() {
 
 fun pruebasCicloEuleriano() {
     println("\u001B[32mPrueba del Ciclo Euleriano: \u001B[0m\n")
+    
+    val EULER = "cicloEuleriano.txt"
+    val EULER2 = "cicloEuleriano2.txt"
+
+    // Prueba del ciclo euleriano
+    val g = GrafoDirigido(EULER, false)
+    val euler = CicloEuleriano(g)
+    println(" ${g.tieneCicloEuleriano()}") // true
+    for (c in euler.obtenerCicloEuleriano()) {println(c)}
+
+    val g2 = GrafoDirigido(EULER2, false)
+    val euler2 = CicloEuleriano(g2)
+    println(" ${g2.tieneCicloEuleriano()}") // true
+    for (c in euler2.obtenerCicloEuleriano()) {println(c)}
+
 }
 
 fun pruebasMetricas() {
     println("\u001B[32mPrueba de las métricas de un grafo no dirigido: \u001B[0m\n")
+
 }
 
 fun pruebasBipartito() {
