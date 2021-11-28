@@ -3,10 +3,12 @@ package ve.usb.grafoLib
 import java.util.LinkedList
 
 /** 
- * Clase que computa varias métricas sobre un grafo no dirigido conexo.
+ * Clase que computa el diámetro, el radio, el centro , el índice de Wiener
+ * y las excentricidades cada vértices de un grafo no dirigido conexo.
  * 
- * @throws [RuntimeException] Si el grafo de entrada no es conexo.
+ * @param [g]: grafo no dirigido sobre el que se calcula sus métricas.
  *
+ * @throws [RuntimeException] Si el grafo de entrada no es conexo.
  */ 
 public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     private val n = g.obtenerNumeroDeVertices()
@@ -22,10 +24,7 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     init {
         if (!esConexo()) throw RuntimeException("El grafo no es conexo.")
 
-        /* Calcula las excentricidades, radio y diametro
-        La excentricidad de un vértice s consiste en la longitud del camino
-        más corto desde s hasta un vértice t, tal que t es el vértice con 
-        el camino más corto de mayor longitud desde s. */
+        // Calcula las excentricidades, radio y diametro
         for (u in 0 until n) {
             for (i in 0 until n) color[i] = Color.BLANCO
             for (i in 0 until n) dist[i] = Integer.MAX_VALUE
@@ -61,7 +60,16 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
         return color.all{ it == Color.NEGRO }
     }
     
-
+    /**
+     * Explora iterativamente el grafo [g] con BFS desde el
+     * vértice [s], para hallar la excentricidad de [s].
+     * 
+     * Tiempo de ejecución: O(|E|).
+     * Precondición: [g] es un grafo.
+     *               [s] es un vértice perteneciente al grafo.
+     * Postcondición: [bfsExcentricidad] es la longitud del camino
+     *                más largo desde [s] hasta cualquier otro vértice.
+     */
     private fun bfsExcentricidad(g: Grafo, s: Int): Int {
         dist[s] = 0
         color[s] = Color.GRIS
@@ -92,29 +100,62 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
         return excent
     }
 
-    // Computa la excentricidad de s
+    /**
+     * Retorna la excentricidad del vértice [s]. 
+     *
+     * @throws [RuntimeException] El vértice está fuera del intervalo [0..|V|).
+     * 
+     * Tiempo de ejecución: O(1).
+     * Precondición: [v] pertenece al conjunto de vértices del grafo.
+     * Postcondición: [excentricidad] es la longitud del camino
+     *                más largo desde [s] hasta cualquier otro vértice.
+     */
     fun excentricidad(s: Int) : Int {
         g.chequearVertice(s)
         return excentricidad[s]
     } 
 
-    // Computa el diámetro de un grafo 
-    // El diámetro de un grafo consiste en el mayor valor de 
-    // excentricidad que se puede obtener de los vértices de un grafo.
+    /**
+     * Retorna el diámetro del grafo [g]. 
+     * 
+     * Tiempo de ejecución: O(1).
+     * Precondición: true.
+     * Postcondición:   [diametro] es la excentricidad del grafo [g],
+     *                  es el mayor valor de excentricidad que se 
+     *                  puede obtener de los vértices del grafo [g].
+     */
     fun diametro(): Int = diametro
 
-    // Computa el radio de un grafo 
-    // El radio de un grafo consiste en el menor valor de excentricidad 
-    // que se puede obtener de los vértices de un grafo.
+    /**
+     * Retorna el radio del grafo [g]. 
+     * 
+     * Tiempo de ejecución: O(1).
+     * Precondición: true.
+     * Postcondición:   [radio] es la excentricidad del grafo [g],
+     *                  es el menor valor de excentricidad que se 
+     *                  puede obtener de los vértices del grafo [g].
+     */
     fun radio(): Int = radio
 
-    // Retorna el vértice centro de un grafo 
-    // El centro de un grafo es el vértice v con el que se 
-    // obtiene el valor del radio de un grafo.
+    /**
+     * Retorna el centro del grafo [g]. 
+     * 
+     * Tiempo de ejecución: O(1).
+     * Precondición: true.
+     * Postcondición:   [centro] es el vértice v con el que el menor valor  
+     *                  de excentricidad que se puede obtener de los
+     *                  vértices del grafo [g].
+     */
     fun centro(): Int = centro
 
-    // Computa el índice Wiener de un grafo
-    // El índice Wiener de un grafo es la suma de todos los caminos mas
-    // cortos entre todos los pares distintos de vértices de un grafo.
+    /**
+     * Retorna el índice Wiener de un grafo [g]. 
+     * 
+     * Tiempo de ejecución: O(1).
+     * Precondición: true.
+     * Postcondición:   [indiceWiener] es la suma de todos los caminos más
+     *                  cortos entre todos los pares distintos de vértices
+     *                  de un grafo [g].
+     */.
     fun indiceWiener(): Int = wiener
 }
