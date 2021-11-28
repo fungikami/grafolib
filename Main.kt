@@ -97,8 +97,7 @@ fun pruebasMetricas() {
     println("   -Centro = ${met2.centro()}")   // 2
 
     // Índice Wiener
-    println("   -Índice Wiener = ${met2.indiceWiener()}")   // 28
-    // (1 + 2*4 + 3) + (1 + 2*3 + 3) + (1*3 + 2) + 1 
+    println("   -Índice Wiener = ${met2.indiceWiener()}")   // 25
 
 }
 
