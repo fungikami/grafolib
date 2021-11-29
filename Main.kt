@@ -13,23 +13,40 @@ val CARPETA = "pruebas"
  * 
  */
 fun main() {
-    pruebasCicloEuleriano()
+    try {
+        pruebasCicloEuleriano()
 
-    println("\n------------------------------------------------------------")
+        println("\n------------------------------------------------------------")
 
-    pruebasMetricas()
+        pruebasMetricas()
 
-    println("\n------------------------------------------------------------")
-    
-    pruebasBipartito()
-    
-    println("\n------------------------------------------------------------")
-    
-    pruebasLCA()
+        println("\n------------------------------------------------------------")
+        
+        pruebasBipartito()
+        
+        println("\n------------------------------------------------------------")
+        
+        pruebasLCA()
 
-    println("\n------------------------------------------------------------")
+        println("\n------------------------------------------------------------")
 
-    pruebas2SAT()
+        pruebas2SAT()
+
+    } catch(e: NullPointerException) {
+		println("Error fatal, operación con nulos.")
+		e.printStackTrace()
+	} catch(e: RuntimeException) {
+		println("Error fatal, error durante la ejecución de una clase.")
+		e.printStackTrace()
+	} catch(e: IllegalArgumentException) {
+		println("Error fatal, argumentos inválidos.")
+		e.printStackTrace()	
+	} catch(e: Exception) {
+		println("Error fatal, el programa aborta.")
+		e.printStackTrace()
+    } finally {
+		println("\n------------------------------------------------------------")
+    }	
 }
 
 /**
@@ -37,7 +54,7 @@ fun main() {
  * de la librería ve.usb.grafoLib.
  */
 fun pruebasCicloEuleriano() {
-    println("\u001B[32mPrueba del Ciclo Euleriano: \u001B[0m")
+    println("\n\u001B[32mPrueba del ciclo euleriano: \u001B[0m")
     
     val PRUEBAS = arrayOf(
         "$CARPETA/cicloEuleriano.txt",
@@ -126,7 +143,7 @@ fun pruebasBipartito() {
     Tiene ciclo euleriano: true (si no se agrega arista (1, 3))
     ------------------------------- */
 
-    println("\u001B[32mPrueba de grafo bipartito: \u001B[0m")
+    println("\u001B[32mPrueba de grafos bipartitos: \u001B[0m")
 
     val BIPARTITO = "$CARPETA/bipartito.txt"
     val BIPARTITO1 = "$CARPETA/bipartito1.txt"

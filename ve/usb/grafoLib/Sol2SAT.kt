@@ -85,7 +85,7 @@ public class Sol2SAT(nombreArchivo: String) {
             } 
         }
     }    
-
+    
     private fun id(str: String): Int {
         if (str == "-0") return 1
         
