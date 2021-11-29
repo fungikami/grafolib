@@ -1,4 +1,7 @@
-
+/**
+ * Autor: Ka Fung & Christopher Gómez
+ * Fecha: 30/Nov/2021.
+ */
 
 import ve.usb.grafoLib.*
 
@@ -50,8 +53,8 @@ fun main() {
 }
 
 /**
- * Implementación que prueba la clase CicloEuleriano
- * de la librería ve.usb.grafoLib.
+ * Casos de prueba para la implementación de la clase CicloEuleriano
+ * de la librería grafoLib.
  */
 fun pruebasCicloEuleriano() {
     println("\n\u001B[32mPrueba del ciclo euleriano: \u001B[0m")
@@ -64,18 +67,26 @@ fun pruebasCicloEuleriano() {
     
     // Prueba del ciclo euleriano
     PRUEBAS.forEachIndexed { i, prueba ->
-        println("\nPrueba ${i+1}:")
+        println("\nPrueba ${i + 1}:")
         val g = GrafoDirigido(prueba, false)
         val euler = CicloEuleriano(g)
-        val eulerBool = euler.tieneCicloEuleriano()
-        println("  -Es un ciclo euleriano: ${eulerBool}") // true
-        if (eulerBool) println("  ${euler.obtenerCicloEuleriano()}")
+        val esEuleriano = euler.tieneCicloEuleriano()
+        println("  -Es un grafo euleriano: ${esEuleriano}") // true
+
+        if (esEuleriano) {
+            val ciclo = euler.obtenerCicloEuleriano()
+            val cicloStr = ciclo.joinToString(separator = " -> ") { 
+                "${it.fuente()}"
+            }.plus(" -> ${ciclo.last().sumidero()}")
+            
+            if (esEuleriano) println("  -Circuito euleriano: $cicloStr")
+        }
     }
 }
 
 /**
- * Implementación que prueba la clase MetricasDeGrafo
- * de la librería ve.usb.grafoLib.
+ * Casos de prueba para la implementación de la clase MetricasDeGrafo
+ * de la librería grafoLib.
  */
 fun pruebasMetricas() {
     println("\u001B[32mPrueba de las métricas de un grafo no dirigido: \u001B[0m")
@@ -129,8 +140,8 @@ fun pruebasMetricas() {
 }
 
 /**
- * Implementación que prueba la clase DosColoreable
- * de la librería ve.usb.grafoLib.
+ * Casos de prueba para la implementación de la clase DosColoreable
+ * de la librería grafoLib.
  */
 fun pruebasBipartito() {
     /* -------------------------------
@@ -174,8 +185,8 @@ fun pruebasBipartito() {
 }
 
 /**
- * Implementación que prueba la clase LCA 
- * de la librería ve.usb.grafoLib.
+ * Casos de prueba para la implementación de la clase LCA 
+ * de la librería grafoLib.
  */
 fun pruebasLCA() {
     /* -------------------------------
@@ -215,8 +226,8 @@ fun pruebasLCA() {
 }
 
 /**
- * Implementación que prueba la clase Sol2SAT de la librería 
- * ve.usb.grafoLib.
+ * Casos de prueba para la implementación de la clase Sol2SAT de la librería 
+ * grafoLib.
  */
 fun pruebas2SAT() {
     /* -------------------------------
