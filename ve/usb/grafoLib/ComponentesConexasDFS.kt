@@ -43,7 +43,6 @@ public class ComponentesConexasDFS(val g: GrafoNoDirigido) {
      * dfsVisit modificado para hallar y contar componentes conexas
      * en un grafo no dirigido.
      * 
-     * 
      * Tiempo de ejecución: O(|E|).
      * Precondición: [g] es un grafo.
      *               [u] es un vértice perteneciente al grafo.

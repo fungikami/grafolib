@@ -1,3 +1,8 @@
+/**
+ * Autor: Ka Fung & Christopher Gómez
+ * Fecha: 30/Nov/2021.
+ */
+
 package ve.usb.grafoLib
 
 import java.io.File
