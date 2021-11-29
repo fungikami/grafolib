@@ -77,6 +77,15 @@ public class CicloEuleriano(val g: GrafoDirigido) {
         }
     }
 
+    /**
+     * Explora recursivamente todos los vértices alcanzables desde [u]
+     * en el grafo [g].
+     * 
+     * Tiempo de ejecución: O(|E|).
+     * Precondición: [g] es un grafo.
+     *               [u] es un vértice perteneciente al grafo.
+     * Postcondición: true
+     */
     private fun dfsVisit(g: Grafo, u: Int) {
         // Se empieza a explorar u
         color[u] = Color.GRIS

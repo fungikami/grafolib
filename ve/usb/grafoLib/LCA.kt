@@ -3,16 +3,18 @@ package ve.usb.grafoLib
 import java.util.LinkedList
 import kotlin.Double.Companion.POSITIVE_INFINITY
 
-/*
- Clase para determinar el ancestro común más bajo de un par de vértices.
- El grafo de entrada tiene que ser un digrafo acíclico, en caso contrario
- se lanza una RuntimeException.
-*/
+/**
+ * Implementación del algoritmo que determina el ancestro común más bajo 
+ * de un par de vértices. 
+ * 
+ * @throws [RuntimeException] Si el grafo de entrada no es DAG.
+ * 
+ * @param [g]: digrafo sobre el que se ejecuta el algoritmo.
+ */
 public class LCA(val g: GrafoDirigido) {
     private val n = g.obtenerNumeroDeVertices()
     private val color = Array<Color>(n) { Color.BLANCO }
     private val dist = IntArray(n) { POSITIVE_INFINITY.toInt() }
-    // Cada vértice es ancestro de sí mismo
     private val ancestro = Array<MutableSet<Int>>(n) { mutableSetOf() }
     private var vFuente = 0
 
@@ -41,7 +43,7 @@ public class LCA(val g: GrafoDirigido) {
                 // Se selecciona el adyacente
                 val s = it.elOtroVertice(u)
 
-                // Guardar predecesor del vértice.
+                // Guardar ancestros del vértice.
                 dist[s] = dist[u] + 1
                 ancestro[s].addAll(ancestro[u])
                 ancestro[s].add(u)
@@ -54,16 +56,23 @@ public class LCA(val g: GrafoDirigido) {
             color[u] = Color.NEGRO
         }
     }
-    
-    /*
-     Obtiene el LCA de dos vértices. Si alguno de los vértices no pertenece al 
-     grafo de lanza una RuntimeException.
-     */
+
+    /**
+     * Retorna el ancestro común más bajo (LCA) de dos vértices [v] y [u].
+     * 
+     * @throws [RuntimeException] Alguno de los dos vértices está fuera
+     *                            del intervalo [0..|V|).
+     * 
+     * Tiempo de ejecución: O(1).
+     * Precondición: [v] y [u] pertenecen al conjunto de vértices del digrafo.
+     * Postcondición:   [obtenerLCA] es un entero que pertece al conjunto de 
+                        vértices del digrafo.
+     */ 
     fun obtenerLCA(v: Int, u: Int) : Int {
         g.chequearVertice(v)
         g.chequearVertice(u)
         
-        // En cambio, se debe buscar el ancestro en común con mayor nivel
+        // Se busca el ancestro en común con mayor nivel
         val ancestrosComun = ancestro[u].intersect(ancestro[v])
         
         // Si no hay ancestros en común, se retorna -1

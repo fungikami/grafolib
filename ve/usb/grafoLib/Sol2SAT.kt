@@ -6,10 +6,15 @@ import java.util.Scanner
 import java.util.LinkedList
 import kotlin.math.abs
 
-/* 
- Solucionador de 2SAT. El constructor recibe como entrada el nombre, o el camino en el directorio, hasta un archivo
- el cual contiene la fórmula booleana en 2CNF. El archivo tiene el formato indicado en el enunciado del Proyecto.
-*/
+/**
+ * Implementación del algoritmo que soluciona el problema computacional 
+ * 2-satisfiability (2-SAT), para asignar valores a variables, cada uno 
+ * de los cuales tiene dos valores posibles, para satisfacer un sistema 
+ * de restricciones en pares de variables. 
+ * 
+ * @param [nombreArchivo]: camino en el directorio que contiene la  
+ *                         fórmula booleana 2CNF.
+ */
 public class Sol2SAT(nombreArchivo: String) {
     var esSatisfacible = true
     var asignacion = BooleanArray(0)
@@ -44,15 +49,16 @@ public class Sol2SAT(nombreArchivo: String) {
         val digrafoImp = GrafoDirigido(n)
         asignacion = BooleanArray(n / 2)
 
-        // Agregar lados
+        // Agregar lados al digrafo
         literales.forEach { (id0, id1) ->
             digrafoImp.agregarArco(Arco(negadoId(id0), id1))
             digrafoImp.agregarArco(Arco(negadoId(id1), id0))
         }
 
-        // Obtener CFC
+        // Obtener CFC del digrafo
         val cfc = CFC(digrafoImp)
 
+        // Verificar si es satisfacible
         esSatisfacible = !(0 until n step 2).any {
             cfc.estanFuertementeConectados(it, it + 1)
         }
