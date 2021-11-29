@@ -101,14 +101,34 @@ public class Sol2SAT(nombreArchivo: String) {
         return if (id % 2 == 0) (id / 2).toString() else (-id / 2).toString()
     }
 
-    // Retorna true si existe una  asignación que haga verdadera la fórmula, en caso contrario retorna false. 
+    /**
+     * Retorna un booleano indicando si el 2CNF .
+     * 
+     * Tiempo de ejecución: O(1).
+     * Precondición: true.
+     * Postcondición: [tieneAsignacionVerdadera] es: -True si el 2CF del archivo,
+     *                                  tiene asignación que haga verdadera la fórmula.
+     *                                              -False de otra forma.
+     */
     fun tieneAsignacionVerdadera(): Boolean = esSatisfacible
 
-    /* En caso de que exista una asignación que haga verdadera la fórmula booleana, entonces retorna la asignación
-     que debe tener cada variable Xi. La posición en el contendor corresponde al indice de la variable.
-     Entonces, dada n variables, entonces el objeto iterable corresponde a la secuencia
-     <X0, X1, ..., Xn-1>. En caso de que No exista una asignación que haga verdadera la fórmula booena se
-     retorna una RuntimeException.
-    */ 
-    fun asignacion(): Iterable<Boolean> = asignacion.asIterable()
+    /**
+     * Retorna un objeto Iterable que contiene la asignación de cada varible de la fórmula.
+     * 
+     * @throws [RuntimeException] El 2CNF del archivo no tiene una asignación 
+     *                            que haga verdadera la fórmula booleana.
+     * Tiempo de ejecución: O(1).
+     * Precondición: true.
+     * Postcondición: [asignacion] Es un objeto iterable con la asignación que debe 
+     *                tener cada variable Xi, tal que la posición en el contendor 
+     *                corresponde al indice de la variable.
+     *                Ejemplo: dado n variables, entonces el objeto iterable corresponde
+     *                a la secuencia  <X0, X1, ..., Xn-1>.
+     */ 
+    fun asignacion(): Iterable<Boolean> {
+        if (!this.tieneAsignacionVerdadera()) {
+            throw RuntimeException("No existe una asignación que haga verdadera la fórmula booleana.")
+        }
+        return asignacion.asIterable()
+    } 
 }

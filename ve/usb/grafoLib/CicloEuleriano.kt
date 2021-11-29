@@ -149,8 +149,6 @@ public class CicloEuleriano(val g: GrafoDirigido) {
         if (!euleriano) throw RuntimeException("El grafo no tiene ciclo euleriano.")
         return cicloEuler
     }
-    
-    // Retorna true si el digrafo tiene un ciclo euleriano, y false en caso contrario.
 
     /**
      * Retorna un booleano indicando si [g] tiene un ciclo euleriano.

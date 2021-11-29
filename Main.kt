@@ -104,9 +104,20 @@ fun pruebasMetricas() {
 }
 
 fun pruebasBipartito() {
-    println("\u001B[32mPrueba de grafo bipartito: \u001B[0m")
+    /* -------------------------------
+    Prueba 1
+    Prueba del enunciado del proyecto 1
+    Tiene ciclo euleriano: true
     
+    Prueba 2
+    https://www.techiedelight.com/determine-given-graph-bipartite-graph-using-dfs/ 
+    Tiene ciclo euleriano: true (si no se agrega arista (1, 3))
+    ------------------------------- */
+
+    println("\u001B[32mPrueba de grafo bipartito: \u001B[0m")
+
     val BIPARTITO = "$CARPETA/bipartito.txt"
+    val BIPARTITO1 = "$CARPETA/bipartito1.txt"
     val BIPARTITO2 = "$CARPETA/bipartito2.txt"
 
     // Prueba de grafo bipartito
@@ -114,15 +125,20 @@ fun pruebasBipartito() {
     val g = GrafoNoDirigido(BIPARTITO, false)
     val bipartito = DosColoreable(g)
     println("   -El grafo es bipartito: ${bipartito.esDosColoreable()}")
+
+    println("\nPrueba 2:")
+    val g1 = GrafoNoDirigido(BIPARTITO1, false)
+    val bipartito1 = DosColoreable(g1)
+    println("   -El grafo es bipartito: ${bipartito1.esDosColoreable()}")
     
     println("   -Se agrega un lado que rompe la condición de bipartición.")
 
     // Si se agrega, el grafo no es bipartito
-    g.agregarArista(Arista(1, 3)) 
-    val noBipartito = DosColoreable(g)
+    g1.agregarArista(Arista(1, 3)) 
+    val noBipartito = DosColoreable(g1)
     println("   -El grafo es bipartito: ${noBipartito.esDosColoreable()}")
 
-    println("\nPrueba 2:")
+    println("\nPrueba 3:")
     val g2 = GrafoNoDirigido(BIPARTITO2, false)
     val bipartito2 = DosColoreable(g2)
     println("   -El grafo 2 es bipartito: ${bipartito2.esDosColoreable()}")
