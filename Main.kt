@@ -57,6 +57,22 @@ fun main() {
  * de la librería grafoLib.
  */
 fun pruebasCicloEuleriano() {
+    /* -------------------------------
+    Prueba 1
+    Prueba de _____
+    Grafo de 6 lados.
+    Ciclo: [0, 2, 1, 0, 3, 4, 0]
+
+    Prueba 2
+    Prueba de _____
+    Grafo de 10 lados.
+    Ciclo: [0, 1, 2, 3, 5, 4, 1, 3, 4, 2, 0]
+
+    Prueba 2
+    Prueba de _____
+    Grafo de 7 lados.
+    Ciclo: [0, 5, 2, 1, 4, 3, 1, 0]
+    ------------------------------- */
     println("\n\u001B[32mCasos de prueba para CicloEuleriano: \u001B[0m")
     
     val PRUEBAS = arrayOf(
@@ -75,11 +91,17 @@ fun pruebasCicloEuleriano() {
 
         if (esEuleriano) {
             val ciclo = euler.obtenerCicloEuleriano()
-            val cicloStr = ciclo.joinToString(separator = " -> ") { 
-                "${it.fuente()}"
-            }.plus(" -> ${ciclo.last().sumidero()}")
-            
-            if (esEuleriano) println("  -Circuito euleriano: $cicloStr")
+
+            if (esEuleriano) {
+                val cicloStr = ciclo.joinToString(separator = " -> ") { 
+                    "${it.fuente()}"
+                }.plus(" -> ${ciclo.last().sumidero()}")
+                
+                println("  -Circuito euleriano: $cicloStr")
+            }
+
+            println("   Lados del grafo: ${g.obtenerNumeroDeLados()}")
+            println("   Lados del ciclo: ${ciclo.count()}")
         }
     }
 }
