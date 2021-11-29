@@ -72,12 +72,11 @@ public class CicloEuleriano(val g: GrafoDirigido) {
         ladosVisitados.add(lado)
         
         g.adyacentes(lado.sumidero()).forEach {
-            if (!ladosVisitados.contains(it)) {
-                ladosVisitados.add(it) 
-                eulerTourRecur(g, it)
-            }
+            // Si no se había visitado el lado se avanza por el camino
+            if (ladosVisitados.add(it)) eulerTourRecur(g, it)
         }
-        cicloEuler.addFirst(lado)
+        // Terminado un camino se agrega el lado al ciclo
+        cicloEuler.addFirst(lado) // Puede cambiarse por arreglo
     }
 
     /**

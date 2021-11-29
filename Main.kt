@@ -93,33 +93,35 @@ fun pruebasCicloEuleriano() {
             val ciclo = euler.obtenerCicloEuleriano()
             val n = ciclo.count()
 
+
             if (esEuleriano) {
+                // Verificación de correctitud del circuito obtenido
+                var sumideroAnterior = ciclo.first().fuente()
+                var arcoAparece = mutableSetOf<Arco>()
+
+                ciclo.forEach {
+                    if (!arcoAparece.add(it)) {
+                        println("  -Error: No se obtuvo un ciclo euleriano.")
+                        return@forEach
+                    }
+
+                    val fuenteActual = it.fuente()
+                    if (sumideroAnterior != fuenteActual) {
+                        println("  -Error: No se obtuvo un ciclo euleriano.")
+                        return@forEach
+                    }
+                    sumideroAnterior = it.sumidero()
+                }
+
                 val cicloStr = ciclo.joinToString(separator = " -> ") { 
                     "${it.fuente()}"
                 }.plus(" -> ${ciclo.last().sumidero()}")
-                
                 println("  -Circuito euleriano: $cicloStr")
+                
+                println("   Lados del grafo: ${g.obtenerNumeroDeLados()}")
+                println("   Lados del ciclo: $n")
             }
 
-            var sumideroAnterior = ciclo.first().fuente()
-            var arcoAparece = mutableSetOf<Arco>()
-
-            ciclo.forEach {
-                if (!arcoAparece.add(it)) {
-                    println("  -Error: No se obtuvo un ciclo euleriano.")
-                    return@forEach
-                }
-
-                val fuenteActual = it.fuente()
-                if (sumideroAnterior != fuenteActual) {
-                    println("  -Error: No se obtuvo un ciclo euleriano.")
-                    return@forEach
-                }
-                sumideroAnterior = it.sumidero()
-            }
-
-            println("   Lados del grafo: ${g.obtenerNumeroDeLados()}")
-            println("   Lados del ciclo: $n")
         }
     }
 }

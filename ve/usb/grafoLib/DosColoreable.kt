@@ -23,7 +23,7 @@ public class DosColoreable(val g: GrafoNoDirigido) {
 
     init {
         for (v in 0 until n) {
-            if (color[v] == Color.BLANCO){
+            if (color[v] == Color.BLANCO) {
                 bipartito = bipartito && dfsVisit(g, v)
             }
         }
