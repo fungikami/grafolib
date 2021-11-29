@@ -20,7 +20,7 @@ public class CicloEuleriano(val g: GrafoDirigido) {
     private val color = Array<Color>(n) { Color.BLANCO }
 
     private var euleriano = true
-    private var ladoVisitado = HashMap<Arco, Boolean>()
+    private var ladosVisitados = mutableSetOf<Arco>()
     private var cicloEuler = LinkedList<Arco>()
 
     init {
@@ -52,7 +52,6 @@ public class CicloEuleriano(val g: GrafoDirigido) {
 
         // Obtiene los arcos del ciclo euleriano
         var arcos = g.arcos()
-        arcos.forEach { ladoVisitado[it] = false }
         eulerTourRecur(g, arcos.first())
         // eulerTourIter(g, arcos.first())
     }
@@ -70,33 +69,15 @@ public class CicloEuleriano(val g: GrafoDirigido) {
      * Postcondición: true
      */
     private fun eulerTourRecur(g: GrafoDirigido, lado: Arco) {
-        ladoVisitado[lado] = true
+        ladosVisitados.add(lado)
+        
         g.adyacentes(lado.sumidero()).forEach {
-            if (!ladoVisitado[it]!!) {
-                ladoVisitado[it] = true
+            if (!ladosVisitados.contains(it)) {
+                ladosVisitados.add(it) 
                 eulerTourRecur(g, it)
             }
         }
         cicloEuler.addFirst(lado)
-    }
-
-    private fun eulerTourIter(g: GrafoDirigido, lado: Arco){
-        val S = LinkedList<Arco>()
-        S.addFirst(lado)
-        ladoVisitado[lado] = true
-        
-        while (!S.isEmpty()) {
-            val arco = S.poll()
-
-            g.adyacentes(arco.sumidero()).forEach {
-                if (!ladoVisitado[it]!!) {
-                    ladoVisitado[it] = true
-                    S.addFirst(it)
-                }
-            }
-            
-            cicloEuler.add(arco)
-        }
     }
 
     /**

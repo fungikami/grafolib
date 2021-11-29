@@ -91,6 +91,7 @@ fun pruebasCicloEuleriano() {
 
         if (esEuleriano) {
             val ciclo = euler.obtenerCicloEuleriano()
+            val n = ciclo.count()
 
             if (esEuleriano) {
                 val cicloStr = ciclo.joinToString(separator = " -> ") { 
@@ -100,8 +101,25 @@ fun pruebasCicloEuleriano() {
                 println("  -Circuito euleriano: $cicloStr")
             }
 
+            var sumideroAnterior = ciclo.first().fuente()
+            var arcoAparece = mutableSetOf<Arco>()
+
+            ciclo.forEach {
+                if (!arcoAparece.add(it)) {
+                    println("  -Error: No se obtuvo un ciclo euleriano.")
+                    return@forEach
+                }
+
+                val fuenteActual = it.fuente()
+                if (sumideroAnterior != fuenteActual) {
+                    println("  -Error: No se obtuvo un ciclo euleriano.")
+                    return@forEach
+                }
+                sumideroAnterior = it.sumidero()
+            }
+
             println("   Lados del grafo: ${g.obtenerNumeroDeLados()}")
-            println("   Lados del ciclo: ${ciclo.count()}")
+            println("   Lados del ciclo: $n")
         }
     }
 }
