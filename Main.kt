@@ -57,7 +57,7 @@ fun main() {
  * de la librería grafoLib.
  */
 fun pruebasCicloEuleriano() {
-    println("\n\u001B[32mPrueba del ciclo euleriano: \u001B[0m")
+    println("\n\u001B[32mCasos de prueba para CicloEuleriano: \u001B[0m")
     
     val PRUEBAS = arrayOf(
         "$CARPETA/cicloEuleriano.txt",
@@ -89,54 +89,49 @@ fun pruebasCicloEuleriano() {
  * de la librería grafoLib.
  */
 fun pruebasMetricas() {
-    println("\u001B[32mPrueba de las métricas de un grafo no dirigido: \u001B[0m")
+    /* -------------------------------
+    Prueba 1
+    Prueba de _____
+    Excentricidades: [3, 3, 2]
+    Diámetro: 3
+    Radio: 2
+    Centro: 2
+    Índice Wiener: 40
+    
+    Prueba 2
+    Prueba de _____
+    Excentricidades: [3, 3, 2]
+    Diámetro: 3
+    Radio: 2
+    Centro: 2
+    Índice Wiener: 25
+    ------------------------------- */
+    println("\u001B[32mCasos de prueba para MetricasDeGrafo: \u001B[0m")
 
     val PRUEBAS = arrayOf(
         "$CARPETA/metricas.txt",
         "$CARPETA/metricas2.txt",
     )
 
-    val METRICAS = "$CARPETA/metricas.txt"
-    val METRICAS2 = "$CARPETA/metricas2.txt"
+    PRUEBAS.forEachIndexed { i, prueba ->    
+        println("\nPrueba ${i + 1}:")
+        val g = GrafoNoDirigido(prueba, false)
+        val met = MetricasDeGrafo(g)
+        
+        // Excentricidad
+        println("   -Excentricidad(0) = ${met.excentricidad(0)}")
+        println("   -Excentricidad(1) = ${met.excentricidad(1)}")
+        println("   -Excentricidad(2) = ${met.excentricidad(2)}")
+        
+        // Diámetro
+        println("   -Diámetro = ${met.diametro()}")
 
-    println("\nPrueba 1:")
-    val g = GrafoNoDirigido(METRICAS, false)
-    val met = MetricasDeGrafo(g)
-
-    // Excentricidad
-    println("   -Excentricidad(0) = ${met.excentricidad(0)}") // 3
-    println("   -Excentricidad(1) = ${met.excentricidad(1)}") // 3
-    println("   -Excentricidad(2) = ${met.excentricidad(2)}") // 2
-
-    // Diámetro
-    println("   -Diámetro = ${met.diametro()}")   // 3
-
-    // Radio
-    println("   -Radio = ${met.radio()}")     // 2
-    println("   -Centro = ${met.centro()}")   // 2
-
-    // Índice Wiener
-    println("   -Índice Wiener = ${met.indiceWiener()}")   // 40
-
-    println("\nPrueba 2:")
-    val g2 = GrafoNoDirigido(METRICAS2, false)
-    val met2 = MetricasDeGrafo(g2)
-
-    // Excentricidad
-    println("   -Excentricidad(0) = ${met2.excentricidad(0)}") // 3
-    println("   -Excentricidad(1) = ${met2.excentricidad(1)}") // 3
-    println("   -Excentricidad(2) = ${met2.excentricidad(2)}") // 2
-
-    // Diámetro
-    println("   -Diámetro = ${met2.diametro()}")   // 3
-
-    // Radio
-    println("   -Radio = ${met2.radio()}")     // 2
-    println("   -Centro = ${met2.centro()}")   // 2
-
-    // Índice Wiener
-    println("   -Índice Wiener = ${met2.indiceWiener()}")   // 25
-
+        // Radio
+        println("   -Radio = ${met.radio()}")  
+        println("   -Centro = ${met.centro()}")
+        // Índice Wiener
+        println("   -Índice Wiener = ${met.indiceWiener()}")
+    }
 }
 
 /**
@@ -154,7 +149,7 @@ fun pruebasBipartito() {
     Tiene ciclo euleriano: true (si no se agrega arista (1, 3))
     ------------------------------- */
 
-    println("\u001B[32mPrueba de grafos bipartitos: \u001B[0m")
+    println("\u001B[32mCasos de prueba para DosColoreable:\u001B[0m")
 
     val BIPARTITO = "$CARPETA/bipartito.txt"
     val BIPARTITO1 = "$CARPETA/bipartito1.txt"
@@ -197,7 +192,7 @@ fun pruebasLCA() {
     https://stackoverflow.com/questions/14865081/algorithm-to-find-lowest-common-ancestor-in-directed-acyclic-graph 
     ------------------------------- */
     
-    println("\u001B[32mPrueba de detección del ancestro común más bajo: \u001B[0m")
+    println("\u001B[32mCasos de prueba para LCA: \u001B[0m")
 
     val LCA = "$CARPETA/lca.txt"
     val LCA2 = "$CARPETA/lca2.txt"
@@ -226,7 +221,7 @@ fun pruebasLCA() {
 }
 
 /**
- * Casos de prueba para la implementación de la clase Sol2SAT de la librería 
+ * Casos de prueba para la implementación de la clas Sol2SAT de la librería 
  * grafoLib.
  */
 fun pruebas2SAT() {
@@ -246,7 +241,7 @@ fun pruebas2SAT() {
     Tiene asignación: true
     Asignación: [true, false, true, false]
     ------------------------------- */
-    println("\u001B[32mPrueba del solucionador de 2-SAT: \u001B[0m")
+    println("\u001B[32mCasos de prueba para 2-SAT: \u001B[0m")
 
     // Prueba del solucionador de 2SAT
     val PRUEBAS = arrayOf(
@@ -256,7 +251,7 @@ fun pruebas2SAT() {
     )
 
     PRUEBAS.forEachIndexed { i, prueba ->
-        println("\nPrueba ${i+1}:")
+        println("\nPrueba ${i + 1}:")
         val sol = Sol2SAT(prueba)
         val asig = sol.tieneAsignacionVerdadera()
         
@@ -270,6 +265,5 @@ fun pruebas2SAT() {
                 j++
             }
         }
-    }
-    
+    }   
 }
