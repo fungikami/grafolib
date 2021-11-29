@@ -1,5 +1,10 @@
 package ve.usb.grafoLib
 
+import java.io.File
+import java.io.FileInputStream
+import java.util.Scanner
+import java.util.LinkedList
+
 /* 
  Solucionador de 2SAT. El constructor recibe como entrada el nombre, o el camino en el directorio, hasta un archivo
  el cual contiene la fórmula booleana en 2CNF. El archivo tiene el formato indicado en el enunciado del Proyecto.
@@ -10,42 +15,61 @@ public class Sol2SAT(nombreArchivo: String) {
         // https://en.wikipedia.org/wiki/2-satisfiability
 
         // Abrir archivo
-        // if (File(nombreArchivo).exists()) {
-        //     val sc = Scanner(FileInputStream(nombreArchivo))
-        //     // La primera línea contiene el número de vértices
-        //     linea = sc.nextLine()!!.toInt()
-        //     listaDeAdy = Array<ArrayList<Arco>>(numDeVertices){ arrayListOf() }
-        //     gradInt = IntArray(numDeVertices)
+        if (!File(nombreArchivo).exists()) {
+            throw RuntimeException("El archivo indicado en $nombreArchivo no existe o no se puede leer.")
+        }
+        
+        // Leer archivo
+        val sc = Scanner(FileInputStream(nombreArchivo))
+        val literales = LinkedList<Pair<Int, Int>>()
+        var maxVert = -1
+        
+        try {
+            while (true) {
+                val (lit0, lit1) = sc.nextLine()!!.split(' ')
+                
+                val id0 = id(lit0)
+                val id1 = id(lit1)
 
-        //     /* La segunda línea contiene el número de lados, que será
-        //     la cantidad de líneas a leer del archivo */
-        //     repeat(sc.nextLine()!!.toInt()) {
-        //         val a = sc.nextLine()!!.split(' ')
+                if (id0 > maxVert) maxVert = id0
+                if (id1 > maxVert) maxVert = id1
 
-        //         this.agregarArco(Arco(
-        //             a[0].toInt(), 
-        //             a[1].toInt(),
-        //             if (conPeso) a[2].toDouble() else 0.0
-        //             )
-        //         )
-        //     }
-        // } else {
-        //     println("El archivo indicado en $nombreArchivo no existe o no se puede leer.")
-        // }
-    // } 
+                literales.add(Pair(id0, id1))
+            }
+        } catch (e: NoSuchElementException) { }
         
         // Digrafo de implicacion
-        //val digrafoImp = GrafoDirigido()
+        val digrafoImp = GrafoDirigido(maxVert + 2 - (maxVert % 2))
 
         // Agregar lados
+        literales.forEach { (id0, id1) ->
+            digrafoImp.agregarArco(Arco(negadoId(id0), id1))
+            digrafoImp.agregarArco(Arco(negadoId(id1), id0))
+        }
 
         // Obtener CFC
+        val cfc = CFC(digrafoImp)
 
         // Si existe asignacion que haga verdadera, se crea grafo componente
 
         // Ordenamiento topologico <
 
         // 
+    }    
+
+    private fun id(str: String): Int {
+        if (str == "-0") return 1
+        
+        val int = str.toInt()
+        return if (int > 0) 2 * int else -2 * int + 1
+    }
+
+    private fun negadoId(id: Int) = if (id % 2 == 0) id + 1 else id - 1 
+
+    private fun literal(id: Int): String {
+        if (id == 1) return "-0"
+        
+        return if (id % 2 == 0) (id / 2).toString() else (-id / 2).toString()
     }
 
     // Retorna true si existe una  asignación que haga verdadera la fórmula, en caso contrario retorna false. 
