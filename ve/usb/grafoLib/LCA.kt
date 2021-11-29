@@ -13,7 +13,7 @@ public class LCA(val g: GrafoDirigido) {
     private val color = Array<Color>(n) { Color.BLANCO }
     private val dist = IntArray(n) { POSITIVE_INFINITY.toInt() }
     // Cada vértice es ancestro de sí mismo
-    private val ancestro = Array<MutableSet<Int>>(n) { mutableSetOf(it) }
+    private val ancestro = Array<MutableSet<Int>>(n) { mutableSetOf() }
     private var vFuente = 0
 
     init {
@@ -62,10 +62,6 @@ public class LCA(val g: GrafoDirigido) {
     fun obtenerLCA(v: Int, u: Int) : Int {
         g.chequearVertice(v)
         g.chequearVertice(u)
-
-        // Si uno de los vertices es el predecesor del otro, es el LCA
-        if (ancestro[u].contains(v)) return v
-        if (ancestro[v].contains(u)) return u
         
         // En cambio, se debe buscar el ancestro en común con mayor nivel
         val ancestrosComun = ancestro[u].intersect(ancestro[v])

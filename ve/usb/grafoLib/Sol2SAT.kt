@@ -10,6 +10,9 @@ import java.util.LinkedList
  el cual contiene la fórmula booleana en 2CNF. El archivo tiene el formato indicado en el enunciado del Proyecto.
 */
 public class Sol2SAT(nombreArchivo: String) {
+
+    esSatisfaciible = false
+
     init {
         // https://www.math.ucsd.edu/~sbuss/CourseWeb/Math268_2007WS/2SAT.pdf
         // https://en.wikipedia.org/wiki/2-satisfiability
@@ -39,7 +42,8 @@ public class Sol2SAT(nombreArchivo: String) {
         } catch (e: NoSuchElementException) { }
         
         // Digrafo de implicacion
-        val digrafoImp = GrafoDirigido(maxVert + 2 - (maxVert % 2))
+        val n = maxVert + 2 - (maxVert % 2)
+        val digrafoImp = GrafoDirigido(n)
 
         // Agregar lados
         literales.forEach { (id0, id1) ->
@@ -50,8 +54,10 @@ public class Sol2SAT(nombreArchivo: String) {
         // Obtener CFC
         val cfc = CFC(digrafoImp)
 
+        for (i in 0 until n step 2) {
+            if (cfc.estanFuertementeConectados(i, i + 1))
+        }
         // Si existe asignacion que haga verdadera, se crea grafo componente
-
         // Ordenamiento topologico <
 
         // 

@@ -151,10 +151,29 @@ fun pruebasLCA() {
     println("   -LCA(2, 4) = ${lca2.obtenerLCA(2, 4)}") // 6
     println("   -LCA(5, 6) = ${lca2.obtenerLCA(5, 6)}") // 6
     println("   -LCA(1, 2) = ${lca2.obtenerLCA(1, 2)}") // 2
-    println("   -LCA(1, 1) = ${lca2.obtenerLCA(1, 1)}") // 2
+    println("   -LCA(1, 1) = ${lca2.obtenerLCA(1, 1)}") // 1
+    println("   -LCA(1, 7) = ${lca2.obtenerLCA(1, 7)}") // -1
 }
 
 fun pruebas2SAT() {
     println("\u001B[32mPrueba del solucionador de 2-SAT: \u001B[0m\n")
 
+    // Prueba del solucionador de 2SAT
+    val PRUEBAS = arrayOf(
+        "$CARPETA/sol2sat.txt",
+        "$CARPETA/sol2sat2.txt",
+        "$CARPETA/sol2sat3.txt",
+    )
+
+    PRUEBAS.forEachIndexed { i, prueba ->
+        println("Prueba ${i+1}:")
+        val sol = Sol2SAT(PRUEBA2SAT)
+        val asig = sol.tieneAsignacionVerdadera()
+        println("Tiene asignación verdadera: $asig")
+        if (asig) println("Asignación: ${sol.asignacion()}")
+    }
+    
+    /* Prueba 1
+     *
+    */ 
 }
