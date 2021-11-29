@@ -32,6 +32,10 @@ fun main() {
     pruebas2SAT()
 }
 
+/**
+ * Implementación que prueba la clase CicloEuleriano
+ * de la librería ve.usb.grafoLib.
+ */
 fun pruebasCicloEuleriano() {
     println("\u001B[32mPrueba del Ciclo Euleriano: \u001B[0m")
     
@@ -52,6 +56,10 @@ fun pruebasCicloEuleriano() {
     }
 }
 
+/**
+ * Implementación que prueba la clase MetricasDeGrafo
+ * de la librería ve.usb.grafoLib.
+ */
 fun pruebasMetricas() {
     println("\u001B[32mPrueba de las métricas de un grafo no dirigido: \u001B[0m")
 
@@ -103,6 +111,10 @@ fun pruebasMetricas() {
 
 }
 
+/**
+ * Implementación que prueba la clase DosColoreable
+ * de la librería ve.usb.grafoLib.
+ */
 fun pruebasBipartito() {
     /* -------------------------------
     Prueba 1
@@ -144,6 +156,10 @@ fun pruebasBipartito() {
     println("   -El grafo 2 es bipartito: ${bipartito2.esDosColoreable()}")
 }
 
+/**
+ * Implementación que prueba la clase LCA 
+ * de la librería ve.usb.grafoLib.
+ */
 fun pruebasLCA() {
     /* -------------------------------
     Prueba 1
@@ -182,7 +198,8 @@ fun pruebasLCA() {
 }
 
 /**
- * 
+ * Implementación que prueba la clase Sol2SAT de la librería 
+ * ve.usb.grafoLib.
  */
 fun pruebas2SAT() {
     /* -------------------------------
