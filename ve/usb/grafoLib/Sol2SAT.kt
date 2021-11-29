@@ -4,19 +4,17 @@ import java.io.File
 import java.io.FileInputStream
 import java.util.Scanner
 import java.util.LinkedList
+import kotlin.math.abs
 
 /* 
  Solucionador de 2SAT. El constructor recibe como entrada el nombre, o el camino en el directorio, hasta un archivo
  el cual contiene la fórmula booleana en 2CNF. El archivo tiene el formato indicado en el enunciado del Proyecto.
 */
 public class Sol2SAT(nombreArchivo: String) {
-
-    esSatisfaciible = false
+    var esSatisfacible = true
+    var asignacion = BooleanArray(0)
 
     init {
-        // https://www.math.ucsd.edu/~sbuss/CourseWeb/Math268_2007WS/2SAT.pdf
-        // https://en.wikipedia.org/wiki/2-satisfiability
-
         // Abrir archivo
         if (!File(nombreArchivo).exists()) {
             throw RuntimeException("El archivo indicado en $nombreArchivo no existe o no se puede leer.")
@@ -44,6 +42,7 @@ public class Sol2SAT(nombreArchivo: String) {
         // Digrafo de implicacion
         val n = maxVert + 2 - (maxVert % 2)
         val digrafoImp = GrafoDirigido(n)
+        asignacion = BooleanArray(n / 2)
 
         // Agregar lados
         literales.forEach { (id0, id1) ->
@@ -54,20 +53,38 @@ public class Sol2SAT(nombreArchivo: String) {
         // Obtener CFC
         val cfc = CFC(digrafoImp)
 
-        for (i in 0 until n step 2) {
-            if (cfc.estanFuertementeConectados(i, i + 1))
+        esSatisfacible = !(0 until n step 2).any {
+            cfc.estanFuertementeConectados(it, it + 1)
         }
-        // Si existe asignacion que haga verdadera, se crea grafo componente
-        // Ordenamiento topologico <
 
-        // 
+        if (esSatisfacible) {
+            // Se crea el grafo componente
+            val componente = cfc.obtenerGrafoComponente()
+
+            // Se obtiene el ordenamiento topológico al grafo componente
+            val topSort = OrdenTopologico(componente).obtenerOrdenTopologico()
+
+            // Si existe un camino
+            for (i in 0 until n step 2) {
+                for (v in topSort) {
+                    if (v == cfc.obtenerIdentificadorCFC(i + 1)) {
+                        // C(¬xi) < C(xi)
+                        asignacion[i / 2] = true
+                        break
+                    } else if (v == cfc.obtenerIdentificadorCFC(i)) {
+                        // C(xi) < C(¬xi)
+                        break
+                    }
+                }
+            } 
+        }
     }    
 
     private fun id(str: String): Int {
         if (str == "-0") return 1
         
         val int = str.toInt()
-        return if (int > 0) 2 * int else -2 * int + 1
+        return if (int >= 0) 2 * int else -2 * int + 1
     }
 
     private fun negadoId(id: Int) = if (id % 2 == 0) id + 1 else id - 1 
@@ -79,10 +96,7 @@ public class Sol2SAT(nombreArchivo: String) {
     }
 
     // Retorna true si existe una  asignación que haga verdadera la fórmula, en caso contrario retorna false. 
-    fun tieneAsignacionVerdadera(): Boolean {
-        //TODO
-        return false
-    }
+    fun tieneAsignacionVerdadera(): Boolean = esSatisfacible
 
     /* En caso de que exista una asignación que haga verdadera la fórmula booleana, entonces retorna la asignación
      que debe tener cada variable Xi. La posición en el contendor corresponde al indice de la variable.
@@ -90,8 +104,5 @@ public class Sol2SAT(nombreArchivo: String) {
      <X0, X1, ..., Xn-1>. En caso de que No exista una asignación que haga verdadera la fórmula booena se
      retorna una RuntimeException.
     */ 
-    fun asignacion(): Iterable<Boolean> {
-        //TODO
-        return arrayListOf()
-    }
+    fun asignacion(): Iterable<Boolean> = asignacion.asIterable()
 }

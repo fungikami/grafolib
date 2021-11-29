@@ -1,3 +1,5 @@
+
+
 import ve.usb.grafoLib.*
 
 val CARPETA = "pruebas"
@@ -11,28 +13,27 @@ val CARPETA = "pruebas"
  * 
  */
 fun main() {
+    pruebasCicloEuleriano()
 
-    // pruebasCicloEuleriano()
+    println("------------------------------------------------------------")
 
-    // println("------------------------------------------------------------")
+    pruebasMetricas()
 
-    // pruebasMetricas()
-
-    // println("------------------------------------------------------------")
+    println("------------------------------------------------------------")
     
-    // pruebasBipartito()
+    pruebasBipartito()
     
-    // println("------------------------------------------------------------")
+    println("------------------------------------------------------------")
     
     pruebasLCA()
 
-    // println("------------------------------------------------------------")
+    println("------------------------------------------------------------")
 
-    // pruebas2SAT()
+    pruebas2SAT()
 }
 
 fun pruebasCicloEuleriano() {
-    println("\u001B[32mPrueba del Ciclo Euleriano: \u001B[0m\n")
+    println("\u001B[32mPrueba del Ciclo Euleriano: \u001B[0m")
     
     val PRUEBAS = arrayOf(
         "$CARPETA/cicloEuleriano.txt",
@@ -42,7 +43,7 @@ fun pruebasCicloEuleriano() {
     
     // Prueba del ciclo euleriano
     PRUEBAS.forEachIndexed { i, prueba ->
-        println("Prueba ${i+1}:")
+        println("\nPrueba ${i+1}:")
         val g = GrafoDirigido(prueba, false)
         val euler = CicloEuleriano(g)
         println("  -Es un ciclo euleriano: ${euler.tieneCicloEuleriano()}") // true
@@ -51,17 +52,17 @@ fun pruebasCicloEuleriano() {
 }
 
 fun pruebasMetricas() {
-    println("\u001B[32mPrueba de las métricas de un grafo no dirigido: \u001B[0m\n")
-
-    val METRICAS = "$CARPETA/metricas.txt"
-    val METRICAS2 = "$CARPETA/metricas2.txt" 
+    println("\u001B[32mPrueba de las métricas de un grafo no dirigido: \u001B[0m")
 
     val PRUEBAS = arrayOf(
         "$CARPETA/metricas.txt",
         "$CARPETA/metricas2.txt",
     )
 
-    println("Prueba 1:")
+    val METRICAS = "$CARPETA/metricas.txt"
+    val METRICAS2 = "$CARPETA/metricas2.txt"
+
+    println("\nPrueba 1:")
     val g = GrafoNoDirigido(METRICAS, false)
     val met = MetricasDeGrafo(g)
 
@@ -102,23 +103,23 @@ fun pruebasMetricas() {
 }
 
 fun pruebasBipartito() {
-    println("\u001B[32mPrueba de grafo bipartito: \u001B[0m\n")
+    println("\u001B[32mPrueba de grafo bipartito: \u001B[0m")
     
     val BIPARTITO = "$CARPETA/bipartito.txt"
     val BIPARTITO2 = "$CARPETA/bipartito2.txt"
 
     // Prueba de grafo bipartito
-    println("Prueba 1:")
+    println("\nPrueba 1:")
     val g = GrafoNoDirigido(BIPARTITO, false)
     val bipartito = DosColoreable(g)
-    println("   -El grafo es bipartito: ${bipartito.esDosColoreable()}\n")
+    println("   -El grafo es bipartito: ${bipartito.esDosColoreable()}")
     
-    println("   -Se agrega un lado que rompe la condición de bipartición.\n")
+    println("   -Se agrega un lado que rompe la condición de bipartición.")
 
     // Si se agrega, el grafo no es bipartito
     g.agregarArista(Arista(1, 3)) 
     val noBipartito = DosColoreable(g)
-    println("   -El grafo es bipartito: ${noBipartito.esDosColoreable()}\n")
+    println("   -El grafo es bipartito: ${noBipartito.esDosColoreable()}")
 
     println("\nPrueba 2:")
     val g2 = GrafoNoDirigido(BIPARTITO2, false)
@@ -127,36 +128,63 @@ fun pruebasBipartito() {
 }
 
 fun pruebasLCA() {
-    println("\u001B[32mPrueba de detección del ancestro común más bajo: \u001B[0m\n")
+    /* -------------------------------
+    Prueba 1
+    Prueba del enunciado del proyecto 1
+    
+    Prueba 2
+    https://stackoverflow.com/questions/14865081/algorithm-to-find-lowest-common-ancestor-in-directed-acyclic-graph 
+    ------------------------------- */
+    
+    println("\u001B[32mPrueba de detección del ancestro común más bajo: \u001B[0m")
 
     val LCA = "$CARPETA/lca.txt"
     val LCA2 = "$CARPETA/lca2.txt"
 
     // Prueba del ancestro común más bajo
-    println("Prueba 1:")
+    println("\nPrueba 1:")
     val g = GrafoDirigido(LCA, false)
     val lca = LCA(g)
 
-    println("   -LCA(4, 3) = ${lca.obtenerLCA(4, 3)}") // 5
-    println("   -LCA(5, 3) = ${lca.obtenerLCA(5, 3)}") // 1
-    println("   -LCA(5, 4) = ${lca.obtenerLCA(5, 4)}") // 2
-    println("   -LCA(1, 0) = ${lca.obtenerLCA(1, 0)}") // 0
-    println("   -LCA(1, 1) = ${lca.obtenerLCA(1, 1)}") // 2
+    println("   -LCA(4, 3) = ${lca.obtenerLCA(4, 3)}") //  5
+    println("   -LCA(5, 3) = ${lca.obtenerLCA(5, 3)}") //  1
+    println("   -LCA(5, 4) = ${lca.obtenerLCA(5, 4)}") //  2
+    println("   -LCA(1, 0) = ${lca.obtenerLCA(1, 0)}") // -1
+    println("   -LCA(1, 1) = ${lca.obtenerLCA(1, 1)}") //  2
 
     println("\nPrueba 2:")
     val g2 = GrafoDirigido(LCA2, false)
     val lca2 = LCA(g2)
 
-    println("   -LCA(0, 1) = ${lca2.obtenerLCA(0, 1)}") // 1
-    println("   -LCA(2, 4) = ${lca2.obtenerLCA(2, 4)}") // 6
-    println("   -LCA(5, 6) = ${lca2.obtenerLCA(5, 6)}") // 6
-    println("   -LCA(1, 2) = ${lca2.obtenerLCA(1, 2)}") // 2
-    println("   -LCA(1, 1) = ${lca2.obtenerLCA(1, 1)}") // 1
+    println("   -LCA(0, 1) = ${lca2.obtenerLCA(0, 1)}") //  2
+    println("   -LCA(2, 4) = ${lca2.obtenerLCA(2, 4)}") //  6
+    println("   -LCA(5, 6) = ${lca2.obtenerLCA(5, 6)}") // -1
+    println("   -LCA(1, 2) = ${lca2.obtenerLCA(1, 2)}") //  3
+    println("   -LCA(1, 1) = ${lca2.obtenerLCA(1, 1)}") //  2
     println("   -LCA(1, 7) = ${lca2.obtenerLCA(1, 7)}") // -1
 }
 
+/**
+ * 
+ */
 fun pruebas2SAT() {
-    println("\u001B[32mPrueba del solucionador de 2-SAT: \u001B[0m\n")
+    /* -------------------------------
+    Prueba 1
+    Prueba del enunciado del proyecto 1
+    Tiene asignación: true
+    Asignación: [false, false, false]
+
+    Prueba 2
+    https://www.geeksforgeeks.org/2-satisfiability-2-sat-problem/
+    Tiene asignación: false
+    Asignación: []
+
+    Prueba 3
+    https://zerobone.net/blog/cs/hornsat-2sat-np-complete/
+    Tiene asignación: true
+    Asignación: [true, false, true, false]
+    ------------------------------- */
+    println("\u001B[32mPrueba del solucionador de 2-SAT: \u001B[0m")
 
     // Prueba del solucionador de 2SAT
     val PRUEBAS = arrayOf(
@@ -166,14 +194,20 @@ fun pruebas2SAT() {
     )
 
     PRUEBAS.forEachIndexed { i, prueba ->
-        println("Prueba ${i+1}:")
-        val sol = Sol2SAT(PRUEBA2SAT)
+        println("\nPrueba ${i+1}:")
+        val sol = Sol2SAT(prueba)
         val asig = sol.tieneAsignacionVerdadera()
-        println("Tiene asignación verdadera: $asig")
-        if (asig) println("Asignación: ${sol.asignacion()}")
+        
+        println("   Tiene asignación verdadera: $asig")
+
+        if (asig) {
+            println("   Asignación:")
+            var j = 0
+            sol.asignacion().forEach{
+                println("      x$j = $it")
+                j++
+            }
+        }
     }
     
-    /* Prueba 1
-     *
-    */ 
 }
