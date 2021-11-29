@@ -74,18 +74,25 @@ public class Sol2SAT(nombreArchivo: String) {
             for (i in 0 until n step 2) {
                 for (v in topSort) {
                     if (v == cfc.obtenerIdentificadorCFC(i + 1)) {
-                        // C(¬xi) < C(xi)
+                        // C(¬xi) < C(xi) -> xi = true
                         asignacion[i / 2] = true
                         break
                     } else if (v == cfc.obtenerIdentificadorCFC(i)) {
-                        // C(xi) < C(¬xi)
+                        // C(xi) < C(¬xi) -> xi = false
                         break
                     }
                 }
             } 
         }
     }    
-    
+
+    /**
+     * Retorna .
+     * 
+     * Tiempo de ejecución: O(1).
+     * Precondición: true.
+     * Postcondición: [id] es: .
+     */
     private fun id(str: String): Int {
         if (str == "-0") return 1
         
@@ -93,8 +100,22 @@ public class Sol2SAT(nombreArchivo: String) {
         return if (int >= 0) 2 * int else -2 * int + 1
     }
 
+    /**
+     * Retorna .
+     * 
+     * Tiempo de ejecución: O(1).
+     * Precondición: true.
+     * Postcondición: [negadoId] es: .
+     */
     private fun negadoId(id: Int) = if (id % 2 == 0) id + 1 else id - 1 
 
+    /**
+     * Retorna .
+     * 
+     * Tiempo de ejecución: O(1).
+     * Precondición: true.
+     * Postcondición: [literal] es: .
+     */
     private fun literal(id: Int): String {
         if (id == 1) return "-0"
         

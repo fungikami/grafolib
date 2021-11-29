@@ -142,7 +142,7 @@ public class CicloEuleriano(val g: GrafoDirigido) {
 
      * Tiempo de ejecución: O(1).
      * Precondición: true.
-     * Postcondición: [obtenerCicloEuleriano] Es un objeto iterable con los
+     * Postcondición: [obtenerCicloEuleriano] es: un objeto iterable con los
      *                arcos en orden del camino del ciclo euleriano. 
      */ 
     fun obtenerCicloEuleriano(): Iterable<Arco> {
