@@ -123,7 +123,7 @@ public class Sol2SAT(nombreArchivo: String) {
     }
 
     /**
-     * Retorna un booleano indicando si el 2CNF .
+     * Retorna un booleano indicando si el 2CNF tiene asignación que haga verdadera la fórmula.
      * 
      * Tiempo de ejecución: O(1).
      * Precondición: true.
@@ -144,7 +144,7 @@ public class Sol2SAT(nombreArchivo: String) {
      *                tener cada variable Xi, tal que la posición en el contendor 
      *                corresponde al indice de la variable.
      *                Ejemplo: dado n variables, entonces el objeto iterable corresponde
-     *                a la secuencia  <X0, X1, ..., Xn-1>.
+     *                a la secuencia  <X0, X1, ..., Xn-1> de booleanos.
      */ 
     fun asignacion(): Iterable<Boolean> {
         if (!this.tieneAsignacionVerdadera()) {
