@@ -156,6 +156,6 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
      * Postcondición:   [indiceWiener] es la suma de todos los caminos más
      *                  cortos entre todos los pares distintos de vértices
      *                  de un grafo [g].
-     */.
+     */
     fun indiceWiener(): Int = wiener
 }

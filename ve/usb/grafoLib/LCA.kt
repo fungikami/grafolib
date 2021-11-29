@@ -2,7 +2,6 @@ package ve.usb.grafoLib
 
 import java.util.LinkedList
 import kotlin.Double.Companion.POSITIVE_INFINITY
-import kotlin.Double.Companion.NEGATIVE_INFINITY
 
 /*
  Clase para determinar el ancestro común más bajo de un par de vértices.
@@ -13,7 +12,8 @@ public class LCA(val g: GrafoDirigido) {
     private val n = g.obtenerNumeroDeVertices()
     private val color = Array<Color>(n) { Color.BLANCO }
     private val dist = IntArray(n) { POSITIVE_INFINITY.toInt() }
-    private val pred = Array<ArrayList<Int>>(n) { arrayListOf() }
+    // Cada vértice es ancestro de sí mismo
+    private val ancestro = Array<MutableSet<Int>>(n) { mutableSetOf(it) }
     private var vFuente = 0
 
     init {
@@ -26,7 +26,7 @@ public class LCA(val g: GrafoDirigido) {
                 break
             }
         }
-        println(vFuente)
+        
         /* Aplicar BFS modificado desde el vertice fuente
         para hallar los ancestros de cada vértice.*/
         dist[vFuente] = 0
@@ -42,8 +42,9 @@ public class LCA(val g: GrafoDirigido) {
                 val s = it.elOtroVertice(u)
 
                 // Guardar predecesor del vértice.
-                pred[s].add(u)
                 dist[s] = dist[u] + 1
+                ancestro[s].addAll(ancestro[u])
+                ancestro[s].add(u)
 
                 if (color[s] == Color.BLANCO) {
                     color[s] = Color.GRIS
@@ -62,25 +63,21 @@ public class LCA(val g: GrafoDirigido) {
         g.chequearVertice(v)
         g.chequearVertice(u)
 
-        // Si uno de los vertices es el fuente, es el LCA
-        if (vFuente == u) return u
-        if (vFuente == v) return v 
-
         // Si uno de los vertices es el predecesor del otro, es el LCA
+        if (ancestro[u].contains(v)) return v
+        if (ancestro[v].contains(u)) return u
         
-
         // En cambio, se debe buscar el ancestro en común con mayor nivel
-        println(pred[u])
-        println(pred[v])
-        val ancestrosComun = pred[u].intersect(pred[v])
-        println(ancestrosComun)
-        var maxNivel = NEGATIVE_INFINITY.toInt()
+        val ancestrosComun = ancestro[u].intersect(ancestro[v])
+        
+        // Si no hay ancestros en común, se retorna -1
+        var maxNivel = -1
         var maxNivelVert = -1
 
-        for (anc in ancestrosComun) {
-            if (dist[anc] > maxNivel) {
-                maxNivel = dist[anc]
-                maxNivelVert = anc
+        ancestrosComun.forEach {
+            if (dist[it] > maxNivel) {
+                maxNivel = dist[it]
+                maxNivelVert = it
             }
         }
 

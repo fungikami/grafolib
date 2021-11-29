@@ -12,31 +12,30 @@ val CARPETA = "pruebas"
  */
 fun main() {
 
-    pruebasCicloEuleriano()
+    // pruebasCicloEuleriano()
 
-    println("------------------------------------------------------------")
+    // println("------------------------------------------------------------")
 
-    pruebasMetricas()
+    // pruebasMetricas()
 
-    println("------------------------------------------------------------")
+    // println("------------------------------------------------------------")
     
-    pruebasBipartito()
+    // pruebasBipartito()
     
-    println("------------------------------------------------------------")
+    // println("------------------------------------------------------------")
     
     pruebasLCA()
 
-    println("------------------------------------------------------------")
+    // println("------------------------------------------------------------")
 
-    pruebas2SAT()
+    // pruebas2SAT()
 }
 
 fun pruebasCicloEuleriano() {
     println("\u001B[32mPrueba del Ciclo Euleriano: \u001B[0m\n")
     
-    // val EULER = "$CARPETA/cicloEuleriano.txt"
-    // val EULER2 = "$CARPETA/cicloEuleriano2.txt"
-    val PRUEBAS = arrayOf("$CARPETA/cicloEuleriano.txt",
+    val PRUEBAS = arrayOf(
+        "$CARPETA/cicloEuleriano.txt",
         "$CARPETA/cicloEuleriano2.txt",
         "$CARPETA/cicloEuleriano3.txt",
     )
@@ -56,6 +55,11 @@ fun pruebasMetricas() {
 
     val METRICAS = "$CARPETA/metricas.txt"
     val METRICAS2 = "$CARPETA/metricas2.txt" 
+
+    val PRUEBAS = arrayOf(
+        "$CARPETA/metricas.txt",
+        "$CARPETA/metricas2.txt",
+    )
 
     println("Prueba 1:")
     val g = GrafoNoDirigido(METRICAS, false)
@@ -137,6 +141,7 @@ fun pruebasLCA() {
     println("   -LCA(5, 3) = ${lca.obtenerLCA(5, 3)}") // 1
     println("   -LCA(5, 4) = ${lca.obtenerLCA(5, 4)}") // 2
     println("   -LCA(1, 0) = ${lca.obtenerLCA(1, 0)}") // 0
+    println("   -LCA(1, 1) = ${lca.obtenerLCA(1, 1)}") // 2
 
     println("\nPrueba 2:")
     val g2 = GrafoDirigido(LCA2, false)
@@ -146,6 +151,7 @@ fun pruebasLCA() {
     println("   -LCA(2, 4) = ${lca2.obtenerLCA(2, 4)}") // 6
     println("   -LCA(5, 6) = ${lca2.obtenerLCA(5, 6)}") // 6
     println("   -LCA(1, 2) = ${lca2.obtenerLCA(1, 2)}") // 2
+    println("   -LCA(1, 1) = ${lca2.obtenerLCA(1, 1)}") // 2
 }
 
 fun pruebas2SAT() {
