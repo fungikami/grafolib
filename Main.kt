@@ -15,19 +15,19 @@ val CARPETA = "pruebas"
 fun main() {
     pruebasCicloEuleriano()
 
-    println("------------------------------------------------------------")
+    println("\n------------------------------------------------------------")
 
     pruebasMetricas()
 
-    println("------------------------------------------------------------")
+    println("\n------------------------------------------------------------")
     
     pruebasBipartito()
     
-    println("------------------------------------------------------------")
+    println("\n------------------------------------------------------------")
     
     pruebasLCA()
 
-    println("------------------------------------------------------------")
+    println("\n------------------------------------------------------------")
 
     pruebas2SAT()
 }
@@ -46,8 +46,9 @@ fun pruebasCicloEuleriano() {
         println("\nPrueba ${i+1}:")
         val g = GrafoDirigido(prueba, false)
         val euler = CicloEuleriano(g)
-        println("  -Es un ciclo euleriano: ${euler.tieneCicloEuleriano()}") // true
-        println("  ${euler.obtenerCicloEuleriano()}")
+        val eulerBool = euler.tieneCicloEuleriano()
+        println("  -Es un ciclo euleriano: ${eulerBool}") // true
+        if (eulerBool) println("  ${euler.obtenerCicloEuleriano()}")
     }
 }
 

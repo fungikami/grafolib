@@ -2,10 +2,14 @@ package ve.usb.grafoLib
 
 import java.util.LinkedList
 
-/*
- Esta clase al inicializarse determina si un digrafo fuertemente conectado, 
- tiene o no un ciclo euleriano. Si el digrafo de entrada no es fuertemente conectado,
- entonces se lanza un RuntineException.
+/**
+ * Implementación del algoritmo que determina si el digrafo [g]
+ * posee un ciclo euleriano, y en caso afirmativo, se termina el 
+ * camino del ciclo. 
+ * 
+ * @throws [RuntimeException] Si el grafo [g] no es fuertemente conectado.
+ * 
+ * @param [g]: digrafo sobre el que se ejecuta el algoritmo.
  */
 public class CicloEuleriano(val g: GrafoDirigido) {
     private val n = g.obtenerNumeroDeVertices()
@@ -47,6 +51,15 @@ public class CicloEuleriano(val g: GrafoDirigido) {
         // eulerTourIter(g, arcos.first())
     }
 
+    /**
+     * Explora recursivamente todos los arcos alcanzables desde [lado]
+     * en el grafo [g].
+     * 
+     * Tiempo de ejecución: O(|E|).
+     * Precondición: [g] es un digrafo.
+     *               [lado] es un arco perteneciente al digrafo.
+     * Postcondición: true
+     */
     private fun eulerTourRecur(g: GrafoDirigido, lado: Arco) {
         arcoVisitado[lado] = true
         g.adyacentes(lado.sumidero()).forEach {
@@ -72,7 +85,7 @@ public class CicloEuleriano(val g: GrafoDirigido) {
                     S.addFirst(it)
                 }
             }
-            // println(arco)
+            
             cicloEuler.add(arco)
         }
     }
@@ -100,6 +113,14 @@ public class CicloEuleriano(val g: GrafoDirigido) {
         color[u] = Color.NEGRO
     }
 
+    /**
+     * Retorna un booleano indicando si [g] es un grafo fuertemente conectado.
+     *  
+     * Tiempo de ejecución: O(|V| + |E|).
+     * Precondición: true.
+     * Postcondición: [esFC] es: -True si [g] está fuertemente conectado.
+     *                           -False de otra forma.
+     */
     private fun esFC(g: GrafoDirigido): Boolean {
         // Si desde el vertice 0 no se recorre todo el grafo, retorna false
         dfsVisit(g, 0)
@@ -114,13 +135,31 @@ public class CicloEuleriano(val g: GrafoDirigido) {
         return color.all{ it == Color.NEGRO }
     }
 
-    // Retorna un objeto iterable que contiene los lados del ciclo euleriano.
-    // Si el digrafo no tiene ciclo euleriano, entonces se lanza un RuntimeException. 
+    /**
+     * Retorna un objeto Iterable que contiene los lados del ciclo euleriano.
+     * 
+     * @throws [RuntimeException] El grafo [g] no tiene un ciclo euleriano.
+
+     * Tiempo de ejecución: O(1).
+     * Precondición: true.
+     * Postcondición: [obtenerCicloEuleriano] Es un objeto iterable con los
+     *                arcos en orden del camino del ciclo euleriano. 
+     */ 
     fun obtenerCicloEuleriano(): Iterable<Arco> {
         if (!euleriano) throw RuntimeException("El grafo no tiene ciclo euleriano.")
         return cicloEuler
     }
     
     // Retorna true si el digrafo tiene un ciclo euleriano, y false en caso contrario.
+
+    /**
+     * Retorna un booleano indicando si [g] tiene un ciclo euleriano.
+     * 
+     * Tiempo de ejecución: O(1).
+     * Precondición: true.
+     * Postcondición: [tieneCicloEuleriano] es: -True si [g] tiene un ciclo euleriano,
+     *                                  un camino que pasa por cada arco una sola vez.
+     *                                          -False de otra forma.
+     */
     fun tieneCicloEuleriano(): Boolean = euleriano
 }
