@@ -12,9 +12,9 @@ import java.util.LinkedList
  * conexos, como su diámetro, radio, centro, índice de Wiener y
  * las excentricidades de cada vértice.
  * 
- * @param [g]: grafo no dirigido.
- *
  * @throws [RuntimeException] El grafo de entrada no es conexo.
+ *
+ * @param [g]: Grafo no dirigido.
  */ 
 public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     private val n = g.obtenerNumeroDeVertices()

@@ -144,7 +144,7 @@ public class Sol2SAT(nombreArchivo: String) {
      * corresponde al literal cuyo identificador es [id].
      * 
      * Tiempo de ejecución: O(1).
-     * Precondición: [id] es un entero no negativo
+     * Precondición: [id] es un entero no negativo.
      * Postcondición: [literal] es una String tal que id(literal) = [id].
      */
     private fun literal(id: Int): String {
@@ -158,7 +158,7 @@ public class Sol2SAT(nombreArchivo: String) {
      * que representa.
      * 
      * Tiempo de ejecución: O(1).
-     * Precondición: true.
+     * Precondición: [id] es un entero no negativo.
      * Postcondición: [negadoId] es un entero tal que 
      *                literal(negadoId) = "-${literal(id)}".
      */
@@ -178,8 +178,8 @@ public class Sol2SAT(nombreArchivo: String) {
     /**
      * Retorna un objeto Iterable que contiene la asignación de cada varible de la fórmula.
      * 
-     * @throws [RuntimeException] El 2CNF del archivo no tiene una asignación 
-     *                            que haga verdadera la fórmula booleana.
+     * @throws [RuntimeException] La fórmula en 2-CNF del archivo no tiene una asignación 
+     *                            que la hará verdadera (es decir, no es satisfacible).
      *
      * Ejemplo: Dadas n variables, el objeto de retorno corresponde a la secuencia  
      *          <X0, X1, ..., Xn-1> de booleanos.

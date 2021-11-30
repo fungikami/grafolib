@@ -16,7 +16,7 @@ import kotlin.Double.Companion.POSITIVE_INFINITY
  * 
  * @throws [RuntimeException] El grafo de entrada no es DAG.
  * 
- * @param [g]: digrafo sobre el que se ejecuta el algoritmo.
+ * @param [g]: Digrafo sobre el que se ejecuta el algoritmo.
  */
 public class LCA(val g: GrafoDirigido) {
     private val n = g.obtenerNumeroDeVertices()
