@@ -12,9 +12,10 @@ val ANSI_RESET = "\u001B[0m"
 val ANSI_SUBRAYADO = "\u001B[4m"
 
 /**
- * Programa cliente que prueba distintos algoritmos de la librería grafoLib,
- * para hallar el ciclo euriano de digrafos, métricas de grafos no dirigidos,
- * detección.
+ * Programa cliente que prueba distintos algoritmos de la librería grafoLib:
+ * para hallar el ciclo euriano de digrafos, calcular las métricas de grafos 
+ * no dirigidos, la detección de grafos bipartitos, la detección de ancestro 
+ * común más bajo de digrafos y un solucionador de problema 2-SAT.
  */
 fun main() {
     try {
@@ -41,9 +42,6 @@ fun main() {
 		e.printStackTrace()
 	} catch(e: RuntimeException) {
 		println("Error fatal, error durante la ejecución de una clase.")
-		e.printStackTrace()
-	} catch(e: IllegalArgumentException) {
-		println("Error fatal, argumentos inválidos.")
 		e.printStackTrace()
 	} catch(e: Exception) {
 		println("Error fatal, el programa aborta.")
