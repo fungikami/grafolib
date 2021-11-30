@@ -21,7 +21,7 @@ public class CicloEuleriano(val g: GrafoDirigido) {
 
     private var euleriano = true
     private var ladosVisitados = mutableSetOf<Arco>()
-    private var cicloEuler = Array<Arco>(g.obtenerNumeroDeLados()) { Arco(it, it) }
+    private var cicloEuler = Array<Arco?>(g.obtenerNumeroDeLados()) { null }
     private var cicloEulerIndex = g.obtenerNumeroDeLados() - 1
 
     init {
@@ -122,7 +122,7 @@ public class CicloEuleriano(val g: GrafoDirigido) {
      */ 
     fun obtenerCicloEuleriano(): Iterable<Arco> {
         if (!euleriano) throw RuntimeException("El grafo no tiene ciclo euleriano.")
-        return cicloEuler.asIterable()
+        return cicloEuler.filterNotNull()
     }
 
     /**
