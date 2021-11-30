@@ -1,19 +1,20 @@
 /**
  * Autor: Ka Fung & Christopher Gómez
- * Fecha: 30/Nov/2021.
+ * Fecha: 30/Nov/2021. Universidad Simón Bolívar.
  */
 
 import ve.usb.grafoLib.*
 
 val CARPETA = "pruebas"
+val ANSI_VERDE = "\u001B[32m"
+val ANSI_MORADO = "\u001B[36m"
+val ANSI_RESET = "\u001B[0m"
+val ANSI_SUBRAYADO = "\u001B[4m"
 
 /**
- * Universidad Simón Bolívar.
- * Algoritmos y Estructuras III. Prof. Guillermo Palma.
- *
- * Descripción: 
- * 
- * 
+ * Programa cliente que prueba distintos algoritmos de la librería grafoLib,
+ * para hallar el ciclo euriano de digrafos, métricas de grafos no dirigidos,
+ * detección.
  */
 fun main() {
     try {
@@ -43,7 +44,7 @@ fun main() {
 		e.printStackTrace()
 	} catch(e: IllegalArgumentException) {
 		println("Error fatal, argumentos inválidos.")
-		e.printStackTrace()	
+		e.printStackTrace()
 	} catch(e: Exception) {
 		println("Error fatal, el programa aborta.")
 		e.printStackTrace()
@@ -70,7 +71,8 @@ fun pruebasCicloEuleriano() {
     Prueba de cicloEuleriano3.jpg
     Grafo de 28 lados.
     ------------------------------- */
-    println("\n\u001B[32mCasos de prueba para CicloEuleriano: \u001B[0m")
+    print(ANSI_SUBRAYADO)
+    println("\n${ANSI_VERDE}Casos de prueba para CicloEuleriano:${ANSI_RESET}")
     
     val PRUEBAS = arrayOf(
         "$CARPETA/cicloEuleriano.txt",
@@ -80,11 +82,14 @@ fun pruebasCicloEuleriano() {
     
     // Prueba del ciclo euleriano
     PRUEBAS.forEachIndexed { i, prueba ->
+        println(ANSI_MORADO)
         println("\nPrueba ${i + 1}:\n($prueba)")
+        println(ANSI_RESET)
+        
         val g = GrafoDirigido(prueba, false)
         val euler = CicloEuleriano(g)
         val esEuleriano = euler.tieneCicloEuleriano()
-        println("  -Es un grafo euleriano: ${esEuleriano}") // true
+        println("   -Es un grafo euleriano: ${esEuleriano}") // true
 
         if (esEuleriano) {
             val ciclo = euler.obtenerCicloEuleriano()
@@ -97,13 +102,13 @@ fun pruebasCicloEuleriano() {
 
                 ciclo.forEach {
                     if (!arcoAparece.add(it)) {
-                        println("  -Error: No se obtuvo un ciclo euleriano.")
+                        println("   -Error: No se obtuvo un ciclo euleriano.")
                         return@forEach
                     }
 
                     val fuenteActual = it.fuente()
                     if (sumideroAnterior != fuenteActual) {
-                        println("  -Error: No se obtuvo un ciclo euleriano.")
+                        println("   -Error: No se obtuvo un ciclo euleriano.")
                         return@forEach
                     }
                     sumideroAnterior = it.sumidero()
@@ -112,7 +117,7 @@ fun pruebasCicloEuleriano() {
                 val cicloStr = ciclo.joinToString(separator = " -> ") { 
                     "${it.fuente()}"
                 }.plus(" -> ${ciclo.last().sumidero()}")
-                println("  -Circuito euleriano: $cicloStr")
+                println("   -Circuito euleriano: $cicloStr")
                 
                 println("   -Lados del grafo: ${g.obtenerNumeroDeLados()}")
                 println("   -Lados del ciclo: $n")
@@ -144,15 +149,18 @@ fun pruebasMetricas() {
     Centro: 1
     Índice Wiener: 180
     ------------------------------- */
-    println("\u001B[32mCasos de prueba para MetricasDeGrafo: \u001B[0m")
+    print(ANSI_SUBRAYADO)
+    println("${ANSI_VERDE}Casos de prueba para MetricasDeGrafo:${ANSI_RESET}")
 
     val PRUEBAS = arrayOf(
         "$CARPETA/metricas.txt",
         "$CARPETA/metricas2.txt",
     )
 
-    PRUEBAS.forEachIndexed { i, prueba ->    
+    PRUEBAS.forEachIndexed { i, prueba -> 
+        println(ANSI_MORADO)   
         println("\nPrueba ${i + 1}:\n($prueba)")
+        println(ANSI_RESET)
         val g = GrafoNoDirigido(prueba, false)
         val met = MetricasDeGrafo(g)
         
@@ -188,18 +196,23 @@ fun pruebasBipartito() {
     Tiene ciclo euleriano: true (si no se agrega arista (1, 3))
     ------------------------------- */
 
-    println("\u001B[32mCasos de prueba para DosColoreable:\u001B[0m")
+    print(ANSI_SUBRAYADO)
+    println("${ANSI_VERDE}Casos de prueba para DosColoreable:${ANSI_RESET}")
 
     val BIPARTITO = "$CARPETA/bipartito.txt"
     val BIPARTITO2 = "$CARPETA/bipartito2.txt"
 
     // Prueba de grafo bipartito
+    println(ANSI_MORADO)
     println("\nPrueba 1:\n($BIPARTITO)")
+    println(ANSI_RESET)
     val g = GrafoNoDirigido(BIPARTITO, false)
     val bipartito = DosColoreable(g)
     println("   -El grafo es bipartito: ${bipartito.esDosColoreable()}")
 
+    println(ANSI_MORADO)
     println("\nPrueba 2:\n($BIPARTITO2)")
+    println(ANSI_RESET)
     val g2 = GrafoNoDirigido(BIPARTITO2, false)
     val bipartito2 = DosColoreable(g2)
     println("   -El grafo es bipartito: ${bipartito2.esDosColoreable()}")
@@ -219,19 +232,25 @@ fun pruebasBipartito() {
 fun pruebasLCA() {
     /* -------------------------------
     Prueba 1
-    Prueba del enunciado del proyecto 1
+    Prueba del lca.png
     
     Prueba 2
-    https://stackoverf/home/fung/Downloads/lca2.pnglow.com/questions/14865081/algorithm-to-find-lowest-common-ancestor-in-directed-acyclic-graph 
+    Prueba del lca2.png
+    
+    Prueba 3
+    Prueba del lca3.png
     ------------------------------- */
     
-    println("\u001B[32mCasos de prueba para LCA: \u001B[0m")
+    print(ANSI_SUBRAYADO)
+    println("${ANSI_VERDE}Casos de prueba para LCA:${ANSI_RESET}")
 
     val LCA = "$CARPETA/lca.txt"
     val LCA2 = "$CARPETA/lca2.txt"
 
     // Prueba del ancestro común más bajo
+    println(ANSI_MORADO)
     println("\nPrueba 1:\n($LCA)")
+    println(ANSI_RESET)
     val g = GrafoDirigido(LCA, false)
     val lca = LCA(g)
 
@@ -241,7 +260,9 @@ fun pruebasLCA() {
     println("   -LCA(1, 0) = ${lca.obtenerLCA(1, 0)}") // -1
     println("   -LCA(1, 1) = ${lca.obtenerLCA(1, 1)}") //  2
 
+    println(ANSI_MORADO)
     println("\nPrueba 2:\n($LCA2)")
+    println(ANSI_RESET)
     val g2 = GrafoDirigido(LCA2, false)
     val lca2 = LCA(g2)
 
@@ -274,7 +295,8 @@ fun pruebas2SAT() {
     Tiene asignación: true
     Asignación: [true, false, true, false]
     ------------------------------- */
-    println("\u001B[32mCasos de prueba para Sol2SAT: \u001B[0m")
+    print(ANSI_SUBRAYADO)
+    println("${ANSI_VERDE}Casos de prueba para Sol2SAT:${ANSI_RESET}")
 
     // Prueba del solucionador de 2SAT
     val PRUEBAS = arrayOf(
@@ -284,7 +306,10 @@ fun pruebas2SAT() {
     )
 
     PRUEBAS.forEachIndexed { i, prueba ->
+        println(ANSI_MORADO)
         println("\nPrueba ${i + 1}:\n($prueba)")
+        println(ANSI_RESET)
+        
         val sol = Sol2SAT(prueba)
         val asig = sol.tieneAsignacionVerdadera()
         
