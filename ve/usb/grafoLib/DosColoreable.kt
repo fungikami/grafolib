@@ -6,13 +6,13 @@
 package ve.usb.grafoLib
 
 /**
- * Implementación de DFS modificado para determinar si un
- * grafo es bipartito.
+ * Implementación de un algoritmo basado en Búsqueda en Profundidad
+ * para determinar si un grafo dado es bipartito.
  * 
  * Se determina si un grafo es 2-coloreable o bipartito
  * al momento que se crea una instancia de la clase.
  * 
- * @param [g]: grafo no dirigido sobre el que se ejecuta el algoritmo.
+ * @param [g]: Grafo no dirigido sobre el que se ejecuta el algoritmo.
  */
 public class DosColoreable(val g: GrafoNoDirigido) {
     // Propiedades de los vértices del grafo
@@ -32,6 +32,8 @@ public class DosColoreable(val g: GrafoNoDirigido) {
     /**
      * Explora recursivamente todos los vértices alcanzables desde [u]
      * en el grafo [g].
+     *
+     * dfsVisit modificado para determinar si un grafo es bipartito.
      * 
      * Tiempo de ejecución: O(|E|).
      * Precondición: [g] es un grafo.

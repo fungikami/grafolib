@@ -8,12 +8,13 @@ package ve.usb.grafoLib
 import java.util.LinkedList
 
 /** 
- * Clase que computa el diámetro, el radio, el centro , el índice de Wiener
- * y las excentricidades cada vértices de un grafo no dirigido conexo.
+ * Clase que computa distintas métricas sobre grafos no dirigidos
+ * conexos, como su diámetro, radio, centro, índice de Wiener y
+ * las excentricidades de cada vértice.
  * 
- * @param [g]: grafo no dirigido sobre el que se calcula sus métricas.
+ * @param [g]: grafo no dirigido.
  *
- * @throws [RuntimeException] Si el grafo de entrada no es conexo.
+ * @throws [RuntimeException] El grafo de entrada no es conexo.
  */ 
 public class MetricasDeGrafo(val g: GrafoNoDirigido) {
     private val n = g.obtenerNumeroDeVertices()
@@ -125,9 +126,9 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
      * 
      * Tiempo de ejecución: O(1).
      * Precondición: true.
-     * Postcondición:   [diametro] es la excentricidad del grafo [g],
-     *                  es el mayor valor de excentricidad que se 
-     *                  puede obtener de los vértices del grafo [g].
+     * Postcondición: [diametro] es la excentricidad del grafo [g].
+     *                Calculada como el mayor valor de excentricidad
+     *                que se puede obtener de los vértices del grafo [g].
      */
     fun diametro(): Int = diametro
 
@@ -136,9 +137,9 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
      * 
      * Tiempo de ejecución: O(1).
      * Precondición: true.
-     * Postcondición:   [radio] es la excentricidad del grafo [g],
-     *                  es el menor valor de excentricidad que se 
-     *                  puede obtener de los vértices del grafo [g].
+     * Postcondición: [radio] es la excentricidad del grafo [g],
+     *                Calculado como el menor valor de excentricidad
+     *                que se puede obtener de los vértices del grafo [g].
      */
     fun radio(): Int = radio
 
@@ -147,9 +148,9 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
      * 
      * Tiempo de ejecución: O(1).
      * Precondición: true.
-     * Postcondición:   [centro] es el vértice v con el que el menor valor  
-     *                  de excentricidad que se puede obtener de los
-     *                  vértices del grafo [g].
+     * Postcondición: [centro] es el vértice v del que se obtiene  
+     *                el menor valor de excentricidad de entre los
+     *                vértices del grafo [g].
      */
     fun centro(): Int = centro
 
@@ -158,9 +159,9 @@ public class MetricasDeGrafo(val g: GrafoNoDirigido) {
      * 
      * Tiempo de ejecución: O(1).
      * Precondición: true.
-     * Postcondición:   [indiceWiener] es la suma de todos los caminos más
-     *                  cortos entre todos los pares distintos de vértices
-     *                  de un grafo [g].
+     * Postcondición: [indiceWiener] es la suma de la longitud de todos
+     *                los caminos más cortos entre todos los pares distintos
+     *                de vértices de un grafo [g].
      */
     fun indiceWiener(): Int = wiener
 }

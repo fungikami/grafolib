@@ -9,10 +9,12 @@ import java.util.LinkedList
 import kotlin.Double.Companion.POSITIVE_INFINITY
 
 /**
- * Implementación del algoritmo que determina el ancestro común más bajo 
- * de un par de vértices. 
+ * Implementación de un algoritmo basado en Búsqueda en Amplitud
+ * que determina el ancestro común más bajo de un par de vértices.
+ * Se considera en el algoritmo que un vértice no es ancestro ni
+ * descendiente de sí mismo.
  * 
- * @throws [RuntimeException] Si el grafo de entrada no es DAG.
+ * @throws [RuntimeException] El grafo de entrada no es DAG.
  * 
  * @param [g]: digrafo sobre el que se ejecuta el algoritmo.
  */
@@ -68,10 +70,10 @@ public class LCA(val g: GrafoDirigido) {
      * @throws [RuntimeException] Alguno de los dos vértices está fuera
      *                            del intervalo [0..|V|).
      * 
-     * Tiempo de ejecución: O(1).
+     * Tiempo de ejecución: O(V) en el peor caso.
      * Precondición: [v] y [u] pertenecen al conjunto de vértices del digrafo.
-     * Postcondición:   [obtenerLCA] es un entero que pertece al conjunto de 
-                        vértices del digrafo.
+     * Postcondición: [obtenerLCA] es un entero que representa un vértice tal 
+     *                que ninguno sus descendientes es ancestro [u] y [v].
      */ 
     fun obtenerLCA(v: Int, u: Int) : Int {
         g.chequearVertice(v)

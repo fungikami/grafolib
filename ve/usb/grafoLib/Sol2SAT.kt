@@ -84,6 +84,7 @@ public class Sol2SAT(nombreArchivo: String) {
             // Se obtiene el ordenamiento topológico al grafo componente
             val topSort = OrdenTopologico(componente).obtenerOrdenTopologico()
 
+            println("Orden topológico: $topSort")
             // Si existe un camino
             for (i in 0 until n step 2) {
                 /* Se recorre el ordenamiento topológico hasta encontrar
@@ -100,7 +101,24 @@ public class Sol2SAT(nombreArchivo: String) {
                         break
                     }
                 }
-            } 
+            }
+
+            for (i in 0 until n step 2) {
+                /* Se recorre el ordenamiento topológico hasta encontrar
+                xi o -xi */
+                for (v in topSort) {
+                    if (v == cfc.obtenerIdentificadorCFC(i + 1)) {
+                        // Se encontró -xi primero
+                        // C(¬xi) < C(xi) -> xi = true
+                        asignacion[i / 2] = true
+                        break
+                    } else if (v == cfc.obtenerIdentificadorCFC(i)) {
+                        // Se encontró xi primero
+                        // C(xi) < C(¬xi) -> xi = false
+                        break
+                    }
+                }
+            }
         }
     }    
 
@@ -147,13 +165,13 @@ public class Sol2SAT(nombreArchivo: String) {
     private fun negadoId(id: Int) = if (id % 2 == 0) id + 1 else id - 1 
 
     /**
-     * Retorna un booleano indicando si el 2CNF tiene asignación que haga verdadera la fórmula.
+     * Retorna un booleano indicando si la fórmula en 2-CNF es satisfacible.
      * 
      * Tiempo de ejecución: O(1).
      * Precondición: true.
-     * Postcondición: [tieneAsignacionVerdadera] es: -True si el 2CNF del archivo,
-     *                                  tiene asignación que haga verdadera la fórmula.
-     *                                              -False de otra forma.
+     * Postcondición: [tieneAsignacionVerdadera] es: -True si la fórmula en 2-CNF del archivo
+     *                                                tiene asignación que haga verdadera la fórmula.
+     *                                               -False de otra forma.
      */
     fun tieneAsignacionVerdadera(): Boolean = esSatisfacible
 
@@ -163,13 +181,14 @@ public class Sol2SAT(nombreArchivo: String) {
      * @throws [RuntimeException] El 2CNF del archivo no tiene una asignación 
      *                            que haga verdadera la fórmula booleana.
      *
+     * Ejemplo: Dadas n variables, el objeto de retorno corresponde a la secuencia  
+     *          <X0, X1, ..., Xn-1> de booleanos.
+     *
      * Tiempo de ejecución: O(1).
      * Precondición: true.
-     * Postcondición: [asignacion] Es un objeto iterable con la asignación que debe 
+     * Postcondición: [asignacion] es un objeto iterable con la asignación que debe 
      *                tener cada variable Xi, tal que la posición en el contendor 
      *                corresponde al indice de la variable.
-     *                Ejemplo: dado n variables, entonces el objeto iterable corresponde
-     *                a la secuencia  <X0, X1, ..., Xn-1> de booleanos.
      */ 
     fun asignacion(): Iterable<Boolean> {
         if (!this.tieneAsignacionVerdadera()) {
