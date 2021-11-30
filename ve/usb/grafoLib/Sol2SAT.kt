@@ -84,23 +84,39 @@ public class Sol2SAT(nombreArchivo: String) {
             // Se obtiene el ordenamiento topológico al grafo componente
             val topSort = OrdenTopologico(componente).obtenerOrdenTopologico()
 
-            println("Orden topológico: $topSort")
-            // Si existe un camino
-            for (i in 0 until n step 2) {
-                /* Se recorre el ordenamiento topológico hasta encontrar
-                xi o -xi */
-                for (v in topSort) {
-                    if (v == cfc.obtenerIdentificadorCFC(i + 1)) {
-                        // Se encontró -xi primero
-                        // C(¬xi) < C(xi) -> xi = true
-                        asignacion[i / 2] = true
-                        break
-                    } else if (v == cfc.obtenerIdentificadorCFC(i)) {
-                        // Se encontró xi primero
-                        // C(xi) < C(¬xi) -> xi = false
+            // Se crea un arreglo con el index del topSort de cada vértice
+            val topSortIndex = IntArray(n) 
+            for (i in 0 until n) {
+                for ((j, comp) in topSort.withIndex()) {
+                    if (cfc.obtenerIdentificadorCFC(i) == comp) {
+                        topSortIndex[i] = j
                         break
                     }
                 }
+            }
+
+            // Se realiza las asignaciones
+            for (i in 0 until n step 2) {
+                /* Se recorre el ordenamiento topológico hasta encontrar
+                xi o -xi */
+                // for (v in topSort) {
+                //     if (v == cfc.obtenerIdentificadorCFC(i + 1)) {
+                //         // Se encontró -xi primero
+                //         // C(¬xi) < C(xi) -> xi = true
+                //         asignacion[i / 2] = true
+                //         break
+                //     } else if (v == cfc.obtenerIdentificadorCFC(i)) {
+                //         // Se encontró xi primero
+                //         // C(xi) < C(¬xi) -> xi = false
+                //         break
+                //     }
+                // }
+
+                // C(¬xi) < C(xi) -> xi = true
+                if (topSortIndex[i + 1] < topSortIndex[i]) {
+                    asignacion[i / 2] = true
+                } 
+                // En cambio, C(xi) < C(¬xi) -> xi = false
             }
 
             for (i in 0 until n step 2) {
