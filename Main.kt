@@ -59,19 +59,16 @@ fun main() {
 fun pruebasCicloEuleriano() {
     /* -------------------------------
     Prueba 1
-    Prueba de _____
+    Prueba de cicloEuleriano.jpeg 
     Grafo de 6 lados.
-    Ciclo: [0, 2, 1, 0, 3, 4, 0]
 
     Prueba 2
-    Prueba de _____
+    Prueba de cicloEuleriano2.jpeg 
     Grafo de 10 lados.
-    Ciclo: [0, 1, 2, 3, 5, 4, 1, 3, 4, 2, 0]
 
-    Prueba 2
-    Prueba de _____
-    Grafo de 7 lados.
-    Ciclo: [0, 5, 2, 1, 4, 3, 1, 0]
+    Prueba 3
+    Prueba de cicloEuleriano3.jpg
+    Grafo de 28 lados.
     ------------------------------- */
     println("\n\u001B[32mCasos de prueba para CicloEuleriano: \u001B[0m")
     
@@ -79,12 +76,11 @@ fun pruebasCicloEuleriano() {
         "$CARPETA/cicloEuleriano.txt",
         "$CARPETA/cicloEuleriano2.txt",
         "$CARPETA/cicloEuleriano3.txt",
-        "$CARPETA/cicloEuleriano4.txt",
     )
     
     // Prueba del ciclo euleriano
     PRUEBAS.forEachIndexed { i, prueba ->
-        println("\nPrueba ${i + 1}:")
+        println("\nPrueba ${i + 1}:\n($prueba)")
         val g = GrafoDirigido(prueba, false)
         val euler = CicloEuleriano(g)
         val esEuleriano = euler.tieneCicloEuleriano()
@@ -93,7 +89,6 @@ fun pruebasCicloEuleriano() {
         if (esEuleriano) {
             val ciclo = euler.obtenerCicloEuleriano()
             val n = ciclo.count()
-
 
             if (esEuleriano) {
                 // Verificación de correctitud del circuito obtenido
@@ -119,8 +114,8 @@ fun pruebasCicloEuleriano() {
                 }.plus(" -> ${ciclo.last().sumidero()}")
                 println("  -Circuito euleriano: $cicloStr")
                 
-                println("   Lados del grafo: ${g.obtenerNumeroDeLados()}")
-                println("   Lados del ciclo: $n")
+                println("   -Lados del grafo: ${g.obtenerNumeroDeLados()}")
+                println("   -Lados del ciclo: $n")
             }
 
         }
@@ -134,20 +129,20 @@ fun pruebasCicloEuleriano() {
 fun pruebasMetricas() {
     /* -------------------------------
     Prueba 1
-    Prueba de _____
-    Excentricidades: [3, 3, 2]
+    Prueba de metricas.png
+    Excentricidades: [3, 3, 2, 3, 3, 2, 3]
     Diámetro: 3
     Radio: 2
     Centro: 2
     Índice Wiener: 40
     
     Prueba 2
-    Prueba de _____
-    Excentricidades: [3, 3, 2]
-    Diámetro: 3
-    Radio: 2
-    Centro: 2
-    Índice Wiener: 25
+    Prueba de metricas2.png
+    Excentricidades: [5, 3, 4, 6, 6, 4, 3, 5, 5, 4, 4, 6]
+    Diámetro: 6
+    Radio: 3
+    Centro: 1
+    Índice Wiener: 180
     ------------------------------- */
     println("\u001B[32mCasos de prueba para MetricasDeGrafo: \u001B[0m")
 
@@ -157,14 +152,14 @@ fun pruebasMetricas() {
     )
 
     PRUEBAS.forEachIndexed { i, prueba ->    
-        println("\nPrueba ${i + 1}:")
+        println("\nPrueba ${i + 1}:\n($prueba)")
         val g = GrafoNoDirigido(prueba, false)
         val met = MetricasDeGrafo(g)
         
         // Excentricidad
-        println("   -Excentricidad(0) = ${met.excentricidad(0)}")
-        println("   -Excentricidad(1) = ${met.excentricidad(1)}")
-        println("   -Excentricidad(2) = ${met.excentricidad(2)}")
+        for (j in 0 until g.obtenerNumeroDeVertices()) {
+            println("   -Excentricidad($j) = ${met.excentricidad(j)}")
+        }
         
         // Diámetro
         println("   -Diámetro = ${met.diametro()}")
@@ -172,6 +167,7 @@ fun pruebasMetricas() {
         // Radio
         println("   -Radio = ${met.radio()}")  
         println("   -Centro = ${met.centro()}")
+
         // Índice Wiener
         println("   -Índice Wiener = ${met.indiceWiener()}")
     }
@@ -184,42 +180,36 @@ fun pruebasMetricas() {
 fun pruebasBipartito() {
     /* -------------------------------
     Prueba 1
-    Prueba del enunciado del proyecto 1
+    Prueba del bipartito.png
     Tiene ciclo euleriano: true
     
     Prueba 2
-    https://www.techiedelight.com/determine-given-graph-bipartite-graph-using-dfs/ 
+    Prueba del bipartito2.png
     Tiene ciclo euleriano: true (si no se agrega arista (1, 3))
     ------------------------------- */
 
     println("\u001B[32mCasos de prueba para DosColoreable:\u001B[0m")
 
     val BIPARTITO = "$CARPETA/bipartito.txt"
-    val BIPARTITO1 = "$CARPETA/bipartito1.txt"
     val BIPARTITO2 = "$CARPETA/bipartito2.txt"
 
     // Prueba de grafo bipartito
-    println("\nPrueba 1:")
+    println("\nPrueba 1:\n($BIPARTITO)")
     val g = GrafoNoDirigido(BIPARTITO, false)
     val bipartito = DosColoreable(g)
     println("   -El grafo es bipartito: ${bipartito.esDosColoreable()}")
 
-    println("\nPrueba 2:")
-    val g1 = GrafoNoDirigido(BIPARTITO1, false)
-    val bipartito1 = DosColoreable(g1)
-    println("   -El grafo es bipartito: ${bipartito1.esDosColoreable()}")
+    println("\nPrueba 2:\n($BIPARTITO2)")
+    val g2 = GrafoNoDirigido(BIPARTITO2, false)
+    val bipartito2 = DosColoreable(g2)
+    println("   -El grafo es bipartito: ${bipartito2.esDosColoreable()}")
     
     println("   -Se agrega un lado que rompe la condición de bipartición.")
 
     // Si se agrega, el grafo no es bipartito
-    g1.agregarArista(Arista(1, 3)) 
-    val noBipartito = DosColoreable(g1)
+    g2.agregarArista(Arista(1, 3)) 
+    val noBipartito = DosColoreable(g2)
     println("   -El grafo es bipartito: ${noBipartito.esDosColoreable()}")
-
-    println("\nPrueba 3:")
-    val g2 = GrafoNoDirigido(BIPARTITO2, false)
-    val bipartito2 = DosColoreable(g2)
-    println("   -El grafo 2 es bipartito: ${bipartito2.esDosColoreable()}")
 }
 
 /**
@@ -232,7 +222,7 @@ fun pruebasLCA() {
     Prueba del enunciado del proyecto 1
     
     Prueba 2
-    https://stackoverflow.com/questions/14865081/algorithm-to-find-lowest-common-ancestor-in-directed-acyclic-graph 
+    https://stackoverf/home/fung/Downloads/lca2.pnglow.com/questions/14865081/algorithm-to-find-lowest-common-ancestor-in-directed-acyclic-graph 
     ------------------------------- */
     
     println("\u001B[32mCasos de prueba para LCA: \u001B[0m")
@@ -241,7 +231,7 @@ fun pruebasLCA() {
     val LCA2 = "$CARPETA/lca2.txt"
 
     // Prueba del ancestro común más bajo
-    println("\nPrueba 1:")
+    println("\nPrueba 1:\n($LCA)")
     val g = GrafoDirigido(LCA, false)
     val lca = LCA(g)
 
@@ -251,7 +241,7 @@ fun pruebasLCA() {
     println("   -LCA(1, 0) = ${lca.obtenerLCA(1, 0)}") // -1
     println("   -LCA(1, 1) = ${lca.obtenerLCA(1, 1)}") //  2
 
-    println("\nPrueba 2:")
+    println("\nPrueba 2:\n($LCA2)")
     val g2 = GrafoDirigido(LCA2, false)
     val lca2 = LCA(g2)
 
@@ -284,7 +274,7 @@ fun pruebas2SAT() {
     Tiene asignación: true
     Asignación: [true, false, true, false]
     ------------------------------- */
-    println("\u001B[32mCasos de prueba para 2-SAT: \u001B[0m")
+    println("\u001B[32mCasos de prueba para Sol2SAT: \u001B[0m")
 
     // Prueba del solucionador de 2SAT
     val PRUEBAS = arrayOf(
@@ -294,7 +284,7 @@ fun pruebas2SAT() {
     )
 
     PRUEBAS.forEachIndexed { i, prueba ->
-        println("\nPrueba ${i + 1}:")
+        println("\nPrueba ${i + 1}:\n($prueba)")
         val sol = Sol2SAT(prueba)
         val asig = sol.tieneAsignacionVerdadera()
         
