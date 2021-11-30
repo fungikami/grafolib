@@ -84,41 +84,7 @@ public class Sol2SAT(nombreArchivo: String) {
             // Se obtiene el ordenamiento topológico al grafo componente
             val topSort = OrdenTopologico(componente).obtenerOrdenTopologico()
 
-            // Se crea un arreglo con el index del topSort de cada vértice
-            val topSortIndex = IntArray(n) 
-            for (i in 0 until n) {
-                for ((j, comp) in topSort.withIndex()) {
-                    if (cfc.obtenerIdentificadorCFC(i) == comp) {
-                        topSortIndex[i] = j
-                        break
-                    }
-                }
-            }
-
             // Se realiza las asignaciones
-            for (i in 0 until n step 2) {
-                /* Se recorre el ordenamiento topológico hasta encontrar
-                xi o -xi */
-                // for (v in topSort) {
-                //     if (v == cfc.obtenerIdentificadorCFC(i + 1)) {
-                //         // Se encontró -xi primero
-                //         // C(¬xi) < C(xi) -> xi = true
-                //         asignacion[i / 2] = true
-                //         break
-                //     } else if (v == cfc.obtenerIdentificadorCFC(i)) {
-                //         // Se encontró xi primero
-                //         // C(xi) < C(¬xi) -> xi = false
-                //         break
-                //     }
-                // }
-
-                // C(¬xi) < C(xi) -> xi = true
-                if (topSortIndex[i + 1] < topSortIndex[i]) {
-                    asignacion[i / 2] = true
-                } 
-                // En cambio, C(xi) < C(¬xi) -> xi = false
-            }
-
             for (i in 0 until n step 2) {
                 /* Se recorre el ordenamiento topológico hasta encontrar
                 xi o -xi */
@@ -160,7 +126,7 @@ public class Sol2SAT(nombreArchivo: String) {
      * corresponde al literal cuyo identificador es [id].
      * 
      * Tiempo de ejecución: O(1).
-     * Precondición: [id] es un entero no negativo.
+     * Precondición: [id] es un entero no negativo
      * Postcondición: [literal] es una String tal que id(literal) = [id].
      */
     private fun literal(id: Int): String {
@@ -174,7 +140,7 @@ public class Sol2SAT(nombreArchivo: String) {
      * que representa.
      * 
      * Tiempo de ejecución: O(1).
-     * Precondición: [id] es un entero no negativo.
+     * Precondición: true.
      * Postcondición: [negadoId] es un entero tal que 
      *                literal(negadoId) = "-${literal(id)}".
      */
@@ -194,8 +160,8 @@ public class Sol2SAT(nombreArchivo: String) {
     /**
      * Retorna un objeto Iterable que contiene la asignación de cada varible de la fórmula.
      * 
-     * @throws [RuntimeException] La fórmula en 2-CNF del archivo no tiene una asignación 
-     *                            que la hará verdadera (es decir, no es satisfacible).
+     * @throws [RuntimeException] El 2CNF del archivo no tiene una asignación 
+     *                            que haga verdadera la fórmula booleana.
      *
      * Ejemplo: Dadas n variables, el objeto de retorno corresponde a la secuencia  
      *          <X0, X1, ..., Xn-1> de booleanos.

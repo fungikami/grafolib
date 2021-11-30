@@ -296,6 +296,11 @@ fun pruebas2SAT() {
     https://zerobone.net/blog/cs/hornsat-2sat-np-complete/
     Tiene asignación: true
     Asignación: [true, false, true, false]
+
+    Prueba 4
+    https://en.wikipedia.org/wiki/2-satisfiability 
+    Tiene asignación: true
+    Asignación: [true, true, true, true, true, true, false]
     ------------------------------- */
     print(ANSI_SUBRAYADO)
     println("${ANSI_VERDE}Casos de prueba para Sol2SAT:${ANSI_RESET}")
@@ -305,6 +310,7 @@ fun pruebas2SAT() {
         "$CARPETA/sol2sat.txt",
         "$CARPETA/sol2sat2.txt",
         "$CARPETA/sol2sat3.txt",
+        "$CARPETA/sol2sat4.txt",
     )
 
     PRUEBAS.forEachIndexed { i, prueba ->
