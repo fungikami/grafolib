@@ -21,7 +21,8 @@ public class CicloEuleriano(val g: GrafoDirigido) {
 
     private var euleriano = true
     private var ladosVisitados = mutableSetOf<Arco>()
-    private var cicloEuler = LinkedList<Arco>()
+    private var cicloEuler = Array<Arco>(g.obtenerNumeroDeLados()) { Arco(it, it) }
+    private var cicloEulerIndex = g.obtenerNumeroDeLados() - 1
 
     init {
         if (!esFC(g)) throw RuntimeException("El grafo no es fuertemente conexo.")
@@ -59,7 +60,8 @@ public class CicloEuleriano(val g: GrafoDirigido) {
             if (ladosVisitados.add(it)) eulerTour(g, it)
         }
         // Terminado un camino se agrega el lado al ciclo
-        cicloEuler.addFirst(lado) // Puede cambiarse por arreglo
+        cicloEuler[cicloEulerIndex] = lado
+        cicloEulerIndex--
     }
 
     /**
@@ -120,7 +122,7 @@ public class CicloEuleriano(val g: GrafoDirigido) {
      */ 
     fun obtenerCicloEuleriano(): Iterable<Arco> {
         if (!euleriano) throw RuntimeException("El grafo no tiene ciclo euleriano.")
-        return cicloEuler
+        return cicloEuler.asIterable()
     }
 
     /**
