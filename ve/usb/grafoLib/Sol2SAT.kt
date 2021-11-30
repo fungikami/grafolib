@@ -12,13 +12,15 @@ import java.util.LinkedList
 import kotlin.math.abs
 
 /**
- * Implementación del algoritmo que soluciona el problema computacional 
- * 2-satisfiability (2-SAT), para asignar valores a variables, cada uno 
- * de los cuales tiene dos valores posibles, para satisfacer un sistema 
- * de restricciones en pares de variables. 
+ * Implementación del algoritmo de Tarjan que soluciona el problema  
+ * 2-satisfiability (2-SAT) en tiempo lineal. 
+ *
+ * Se determina con la creación de una instancia de la clase si la
+ * instancia del problema dado es satisfacible, junto con uno de las
+ * posibles asignaciones que lo satisface, en caso afirmativo.
  * 
  * @param [nombreArchivo]: camino en el directorio que contiene la  
- *                         fórmula booleana 2CNF.
+ *                         fórmula booleana en 2-CNF.
  */
 public class Sol2SAT(nombreArchivo: String) {
     var esSatisfacible = true
@@ -36,15 +38,19 @@ public class Sol2SAT(nombreArchivo: String) {
         var maxVert = -1
         
         try {
+            // Escanea hasta EOF
             while (true) {
                 val (lit0, lit1) = sc.nextLine()!!.split(' ')
                 
+                // Mapea los literales a identificadores en el grafo
                 val id0 = id(lit0)
                 val id1 = id(lit1)
 
+                // Almacena en maxVert el mayor identificador
                 if (id0 > maxVert) maxVert = id0
                 if (id1 > maxVert) maxVert = id1
 
+                // Almacena los identificadore en una lista
                 literales.add(Pair(id0, id1))
             }
         } catch (e: NoSuchElementException) { }
@@ -64,10 +70,13 @@ public class Sol2SAT(nombreArchivo: String) {
         val cfc = CFC(digrafoImp)
 
         // Verificar si es satisfacible
+        /* (Si para ningún literal xi, xi y -xi están
+        en la misma componente conexa) */
         esSatisfacible = !(0 until n step 2).any {
             cfc.estanFuertementeConectados(it, it + 1)
         }
 
+        // Si es satisfacible se determina una asignación válida
         if (esSatisfacible) {
             // Se crea el grafo componente
             val componente = cfc.obtenerGrafoComponente()
@@ -77,12 +86,16 @@ public class Sol2SAT(nombreArchivo: String) {
 
             // Si existe un camino
             for (i in 0 until n step 2) {
+                /* Se recorre el ordenamiento topológico hasta encontrar
+                xi o -xi */
                 for (v in topSort) {
                     if (v == cfc.obtenerIdentificadorCFC(i + 1)) {
+                        // Se encontró -xi primero
                         // C(¬xi) < C(xi) -> xi = true
                         asignacion[i / 2] = true
                         break
                     } else if (v == cfc.obtenerIdentificadorCFC(i)) {
+                        // Se encontró xi primero
                         // C(xi) < C(¬xi) -> xi = false
                         break
                     }
@@ -92,11 +105,13 @@ public class Sol2SAT(nombreArchivo: String) {
     }    
 
     /**
-     * Retorna .
+     * Retorna un entero que corresponde al mapeo de un literal
+     * de una fórmula booleana en el formato del archivo a un
+     * vértice válido del grafo (identificador de literal).
      * 
      * Tiempo de ejecución: O(1).
-     * Precondición: true.
-     * Postcondición: [id] es: .
+     * Precondición: [str] es una String con un literal válido.
+     * Postcondición: [id] es el identificador del literal.
      */
     private fun id(str: String): Int {
         if (str == "-0") return 1
@@ -105,21 +120,14 @@ public class Sol2SAT(nombreArchivo: String) {
         return if (int >= 0) 2 * int else -2 * int + 1
     }
 
-    /**
-     * Retorna .
-     * 
-     * Tiempo de ejecución: O(1).
-     * Precondición: true.
-     * Postcondición: [negadoId] es: .
-     */
-    private fun negadoId(id: Int) = if (id % 2 == 0) id + 1 else id - 1 
 
     /**
-     * Retorna .
+     * Mapeo inverso de la función id. Retorna una String que
+     * corresponde al literal cuyo identificador es [id].
      * 
      * Tiempo de ejecución: O(1).
-     * Precondición: true.
-     * Postcondición: [literal] es: .
+     * Precondición: [id] es un entero no negativo
+     * Postcondición: [literal] es una String tal que id(literal) = [id].
      */
     private fun literal(id: Int): String {
         if (id == 1) return "-0"
@@ -128,11 +136,22 @@ public class Sol2SAT(nombreArchivo: String) {
     }
 
     /**
+     * Retorna el identificador correspondiende al negado del literal
+     * que representa.
+     * 
+     * Tiempo de ejecución: O(1).
+     * Precondición: true.
+     * Postcondición: [negadoId] es un entero tal que 
+     *                literal(negadoId) = "-${literal(id)}".
+     */
+    private fun negadoId(id: Int) = if (id % 2 == 0) id + 1 else id - 1 
+
+    /**
      * Retorna un booleano indicando si el 2CNF tiene asignación que haga verdadera la fórmula.
      * 
      * Tiempo de ejecución: O(1).
      * Precondición: true.
-     * Postcondición: [tieneAsignacionVerdadera] es: -True si el 2CF del archivo,
+     * Postcondición: [tieneAsignacionVerdadera] es: -True si el 2CNF del archivo,
      *                                  tiene asignación que haga verdadera la fórmula.
      *                                              -False de otra forma.
      */
@@ -143,6 +162,7 @@ public class Sol2SAT(nombreArchivo: String) {
      * 
      * @throws [RuntimeException] El 2CNF del archivo no tiene una asignación 
      *                            que haga verdadera la fórmula booleana.
+     *
      * Tiempo de ejecución: O(1).
      * Precondición: true.
      * Postcondición: [asignacion] Es un objeto iterable con la asignación que debe 

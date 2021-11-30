@@ -34,26 +34,9 @@ public class CicloEuleriano(val g: GrafoDirigido) {
             }
         }
 
-        // val arcos = g.arcos()
-
-        // if (euleriano) {
-        //     val temp = LinkedList<Arco>()
-            
-        //     temp.add(arcos.first())
-
-        //     while (!temp.isEmpty()) {
-        //         var u = temp.peekLast()
-
-        //         if (g.adyacentes(u).firstOrNull == null) {
-                    
-        //         }
-        //     }
-        // }
-
         // Obtiene los arcos del ciclo euleriano
         var arcos = g.arcos()
-        eulerTourRecur(g, arcos.first())
-        // eulerTourIter(g, arcos.first())
+        eulerTour(g, arcos.first())
     }
 
     /**
@@ -68,12 +51,12 @@ public class CicloEuleriano(val g: GrafoDirigido) {
      *               [lado] es un arco perteneciente al digrafo.
      * Postcondición: true
      */
-    private fun eulerTourRecur(g: GrafoDirigido, lado: Arco) {
+    private fun eulerTour(g: GrafoDirigido, lado: Arco) {
         ladosVisitados.add(lado)
         
         g.adyacentes(lado.sumidero()).forEach {
             // Si no se había visitado el lado se avanza por el camino
-            if (ladosVisitados.add(it)) eulerTourRecur(g, it)
+            if (ladosVisitados.add(it)) eulerTour(g, it)
         }
         // Terminado un camino se agrega el lado al ciclo
         cicloEuler.addFirst(lado) // Puede cambiarse por arreglo

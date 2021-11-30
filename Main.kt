@@ -68,6 +68,9 @@ fun pruebasCicloEuleriano() {
     Prueba 3
     Prueba de cicloEuleriano3.jpg
     Grafo de 28 lados.
+
+    Prueba 4
+    No es un ciclo euleriano.
     ------------------------------- */
     print(ANSI_SUBRAYADO)
     println("\n${ANSI_VERDE}Casos de prueba para CicloEuleriano:${ANSI_RESET}")
@@ -76,6 +79,7 @@ fun pruebasCicloEuleriano() {
         "$CARPETA/cicloEuleriano.txt",
         "$CARPETA/cicloEuleriano2.txt",
         "$CARPETA/cicloEuleriano3.txt",
+        "$CARPETA/cicloEuleriano4.txt"
     )
     
     // Prueba del ciclo euleriano
