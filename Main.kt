@@ -79,6 +79,7 @@ fun pruebasCicloEuleriano() {
         "$CARPETA/cicloEuleriano.txt",
         "$CARPETA/cicloEuleriano2.txt",
         "$CARPETA/cicloEuleriano3.txt",
+        "$CARPETA/cicloEuleriano4.txt",
     )
     
     // Prueba del ciclo euleriano
