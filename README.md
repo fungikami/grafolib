@@ -1,3 +1,3 @@
-# grafolibProyecto
+# CI3815 Project I: grafolib in Kotlin
 
-Librería que implementa algoritmos sobre grafos.
+Library that implements algorithms on graphs.
